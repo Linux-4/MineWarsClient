@@ -1,6 +1,7 @@
 package net.minecraft.client.multiplayer;
 
 import java.io.IOException;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -44,6 +45,17 @@ public class GuiConnecting extends GuiScreen
         mcIn.loadWorld((WorldClient)null);
         this.connect(hostName, port);
     }
+    
+	private InetAddress resolveIpv6(String hostname) throws UnknownHostException {
+		InetAddress[] addrs = InetAddress.getAllByName(hostname);
+		for (InetAddress addr : addrs) {
+			if (addr instanceof Inet6Address) {
+				return addr;
+			}
+		}
+
+		return addrs.length >= 1 ? addrs[0] : null;
+	}
 
     private void connect(final String ip, final int port)
     {
@@ -61,7 +73,7 @@ public class GuiConnecting extends GuiScreen
                         return;
                     }
 
-                    inetaddress = InetAddress.getByName(ip);
+                    inetaddress = resolveIpv6(ip);
                     GuiConnecting.this.networkManager = NetworkManager.createNetworkManagerAndConnect(inetaddress, port, GuiConnecting.this.mc.gameSettings.isUsingNativeTransport());
                     GuiConnecting.this.networkManager.setNetHandler(new NetHandlerLoginClient(GuiConnecting.this.networkManager, GuiConnecting.this.mc, GuiConnecting.this.previousGuiScreen));
                     GuiConnecting.this.networkManager.sendPacket(new C00Handshake(ip, port, EnumConnectionState.LOGIN));
