@@ -1,6 +1,7 @@
 package net.minecraft.client.multiplayer;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -48,13 +49,28 @@ public class GuiConnecting extends GuiScreen
     
 	private InetAddress resolveIpv6(String hostname) throws UnknownHostException {
 		InetAddress[] addrs = InetAddress.getAllByName(hostname);
+		boolean v6 = true;
 		for (InetAddress addr : addrs) {
-			if (addr instanceof Inet6Address) {
+			if (addr instanceof Inet6Address && v6) {
+				if(reachable(addr)) {
+					return addr;
+				} else {
+					v6 = false;
+				}
+			} else if(!v6 && addr instanceof Inet4Address) {
 				return addr;
 			}
 		}
 
 		return addrs.length >= 1 ? addrs[0] : null;
+	}
+	
+	private boolean reachable(InetAddress addr) {
+		try {
+			return addr.isReachable(3000);
+		} catch (IOException e) {
+			return false;
+		}
 	}
 
     private void connect(final String ip, final int port)
