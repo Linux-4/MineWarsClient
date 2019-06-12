@@ -223,7 +223,7 @@
 				<version>1.3</version>
 				<configuration>
 					<outputPrefix>git-MineWars-</outputPrefix>
-					<scmDirectory>..</scmDirectory>
+					<scmDirectory>.</scmDirectory>
 				</configuration>
 				<executions>
 					<execution>
