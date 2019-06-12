@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,8 +83,8 @@ public class Installer {
 		Files.copy(jar, new File(folder, name));
 	}
 	
-	public static File getJar() {
-		return new File(Installer.class.getProtectionDomain().getCodeSource().getLocation().getFile());
+	public static File getJar() throws URISyntaxException {
+		return new File(Installer.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 	}
 	
 	public static String getJson() {
