@@ -5,8 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>eu.minewars</groupId>
-	<artifactId>mc-client</artifactId>
-	<name>MineWars-Client</name>
+	<artifactId>mwclient</artifactId>
+	<name>MineWarsClient</name>
 	<version>1.12.2-R0.1-SNAPSHOT</version>
 
 	<properties>
