@@ -54,15 +54,7 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        if (this.doneWorking)
-        {
-            if (!this.mc.isConnectedToRealms())
-            {
-                this.mc.displayGuiScreen((GuiScreen)null);
-            }
-        }
-        else
-        {
+        if (!this.doneWorking) {
             this.drawDefaultBackground();
             this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 70, 16777215);
             this.drawCenteredString(this.fontRendererObj, this.stage + " " + this.progress + "%", this.width / 2, 90, 16777215);
