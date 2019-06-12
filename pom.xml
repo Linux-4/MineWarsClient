@@ -248,7 +248,7 @@
 					<forceCreation>true</forceCreation> <!-- Required to prevent shading the jar multiple times -->
 					<archive>
 						<manifestEntries>
-							<Main-Class>Start</Main-Class>
+							<Main-Class>eu.minewars.client.installer.InstallerFrame</Main-Class>
 							<Implementation-Title>${project.name}</Implementation-Title>
 							<Implementation-Version>${describe}</Implementation-Version>
 							<Implementation-Vendor>Linux4</Implementation-Vendor>

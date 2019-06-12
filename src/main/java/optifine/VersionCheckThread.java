@@ -1,15 +1,15 @@
 package optifine;
 
-import java.io.InputStream;
+/*import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import net.minecraft.client.ClientBrandRetriever;
+import net.minecraft.client.ClientBrandRetriever;*/
 
 public class VersionCheckThread extends Thread
 {
     public void run()
     {
-        HttpURLConnection httpurlconnection = null;
+        /*HttpURLConnection httpurlconnection = null;
 
         try
         {
@@ -65,6 +65,6 @@ public class VersionCheckThread extends Thread
         catch (Exception exception)
         {
             Config.dbg(exception.getClass().getName() + ": " + exception.getMessage());
-        }
+        }*/
     }
 }
