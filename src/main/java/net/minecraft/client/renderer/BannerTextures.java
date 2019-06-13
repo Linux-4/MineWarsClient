@@ -12,96 +12,87 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.ResourceLocation;
 
-public class BannerTextures
-{
-    /** An array of all the banner patterns that are being currently rendered */
-    public static final BannerTextures.Cache BANNER_DESIGNS = new BannerTextures.Cache("B", new ResourceLocation("textures/entity/banner_base.png"), "textures/entity/banner/");
+public class BannerTextures {
+	/** An array of all the banner patterns that are being currently rendered */
+	public static final BannerTextures.Cache BANNER_DESIGNS = new BannerTextures.Cache("B",
+			new ResourceLocation("textures/entity/banner_base.png"), "textures/entity/banner/");
 
-    /** An array of all the shield patterns that are being currently rendered */
-    public static final BannerTextures.Cache SHIELD_DESIGNS = new BannerTextures.Cache("S", new ResourceLocation("textures/entity/shield_base.png"), "textures/entity/shield/");
-    public static final ResourceLocation SHIELD_BASE_TEXTURE = new ResourceLocation("textures/entity/shield_base_nopattern.png");
-    public static final ResourceLocation BANNER_BASE_TEXTURE = new ResourceLocation("textures/entity/banner/base.png");
+	/** An array of all the shield patterns that are being currently rendered */
+	public static final BannerTextures.Cache SHIELD_DESIGNS = new BannerTextures.Cache("S",
+			new ResourceLocation("textures/entity/shield_base.png"), "textures/entity/shield/");
+	public static final ResourceLocation SHIELD_BASE_TEXTURE = new ResourceLocation(
+			"textures/entity/shield_base_nopattern.png");
+	public static final ResourceLocation BANNER_BASE_TEXTURE = new ResourceLocation("textures/entity/banner/base.png");
 
-    public static class Cache
-    {
-        private final Map<String, BannerTextures.CacheEntry> cacheMap = Maps.<String, BannerTextures.CacheEntry>newLinkedHashMap();
-        private final ResourceLocation cacheResourceLocation;
-        private final String cacheResourceBase;
-        private final String cacheId;
+	public static class Cache {
+		private final Map<String, BannerTextures.CacheEntry> cacheMap = Maps.<String, BannerTextures.CacheEntry>newLinkedHashMap();
+		private final ResourceLocation cacheResourceLocation;
+		private final String cacheResourceBase;
+		private final String cacheId;
 
-        public Cache(String id, ResourceLocation baseResource, String resourcePath)
-        {
-            this.cacheId = id;
-            this.cacheResourceLocation = baseResource;
-            this.cacheResourceBase = resourcePath;
-        }
+		public Cache(String id, ResourceLocation baseResource, String resourcePath) {
+			this.cacheId = id;
+			this.cacheResourceLocation = baseResource;
+			this.cacheResourceBase = resourcePath;
+		}
 
-        @Nullable
-        public ResourceLocation getResourceLocation(String id, List<BannerPattern> patternList, List<EnumDyeColor> colorList)
-        {
-            if (id.isEmpty())
-            {
-                return null;
-            }
-            else
-            {
-                id = this.cacheId + id;
-                BannerTextures.CacheEntry bannertextures$cacheentry = this.cacheMap.get(id);
+		@Nullable
+		public ResourceLocation getResourceLocation(String id, List<BannerPattern> patternList,
+				List<EnumDyeColor> colorList) {
+			if (id.isEmpty()) {
+				return null;
+			} else {
+				id = this.cacheId + id;
+				BannerTextures.CacheEntry bannertextures$cacheentry = this.cacheMap.get(id);
 
-                if (bannertextures$cacheentry == null)
-                {
-                    if (this.cacheMap.size() >= 256 && !this.freeCacheSlot())
-                    {
-                        return BannerTextures.BANNER_BASE_TEXTURE;
-                    }
+				if (bannertextures$cacheentry == null) {
+					if (this.cacheMap.size() >= 256 && !this.freeCacheSlot()) {
+						return BannerTextures.BANNER_BASE_TEXTURE;
+					}
 
-                    List<String> list = Lists.<String>newArrayList();
+					List<String> list = Lists.<String>newArrayList();
 
-                    for (BannerPattern bannerpattern : patternList)
-                    {
-                        list.add(this.cacheResourceBase + bannerpattern.func_190997_a() + ".png");
-                    }
+					for (BannerPattern bannerpattern : patternList) {
+						list.add(this.cacheResourceBase + bannerpattern.func_190997_a() + ".png");
+					}
 
-                    bannertextures$cacheentry = new BannerTextures.CacheEntry();
-                    bannertextures$cacheentry.textureLocation = new ResourceLocation(id);
-                    Minecraft.getMinecraft().getTextureManager().loadTexture(bannertextures$cacheentry.textureLocation, new LayeredColorMaskTexture(this.cacheResourceLocation, list, colorList));
-                    this.cacheMap.put(id, bannertextures$cacheentry);
-                }
+					bannertextures$cacheentry = new BannerTextures.CacheEntry();
+					bannertextures$cacheentry.textureLocation = new ResourceLocation(id);
+					Minecraft.getMinecraft().getTextureManager().loadTexture(bannertextures$cacheentry.textureLocation,
+							new LayeredColorMaskTexture(this.cacheResourceLocation, list, colorList));
+					this.cacheMap.put(id, bannertextures$cacheentry);
+				}
 
-                bannertextures$cacheentry.lastUseMillis = System.currentTimeMillis();
-                return bannertextures$cacheentry.textureLocation;
-            }
-        }
+				bannertextures$cacheentry.lastUseMillis = System.currentTimeMillis();
+				return bannertextures$cacheentry.textureLocation;
+			}
+		}
 
-        private boolean freeCacheSlot()
-        {
-            long i = System.currentTimeMillis();
-            Iterator<String> iterator = this.cacheMap.keySet().iterator();
+		private boolean freeCacheSlot() {
+			long i = System.currentTimeMillis();
+			Iterator<String> iterator = this.cacheMap.keySet().iterator();
 
-            while (iterator.hasNext())
-            {
-                String s = iterator.next();
-                BannerTextures.CacheEntry bannertextures$cacheentry = this.cacheMap.get(s);
+			while (iterator.hasNext()) {
+				String s = iterator.next();
+				BannerTextures.CacheEntry bannertextures$cacheentry = this.cacheMap.get(s);
 
-                if (i - bannertextures$cacheentry.lastUseMillis > 5000L)
-                {
-                    Minecraft.getMinecraft().getTextureManager().deleteTexture(bannertextures$cacheentry.textureLocation);
-                    iterator.remove();
-                    return true;
-                }
-            }
+				if (i - bannertextures$cacheentry.lastUseMillis > 5000L) {
+					Minecraft.getMinecraft().getTextureManager()
+							.deleteTexture(bannertextures$cacheentry.textureLocation);
+					iterator.remove();
+					return true;
+				}
+			}
 
-            return this.cacheMap.size() < 256;
-        }
-    }
+			return this.cacheMap.size() < 256;
+		}
+	}
 
-    static class CacheEntry
-    {
-        public long lastUseMillis;
-        public ResourceLocation textureLocation;
+	static class CacheEntry {
+		public long lastUseMillis;
+		public ResourceLocation textureLocation;
 
-        private CacheEntry()
-        {
-        }
-    }
+		private CacheEntry() {
+		}
+	}
 }

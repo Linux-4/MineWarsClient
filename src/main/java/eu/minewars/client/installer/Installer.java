@@ -75,30 +75,31 @@ public class Installer {
 		fw.flush();
 		fw.close();
 		installJar(getJar(), folder, mcVerOf + ".jar");
-		//updateJson(dirMcVers, mcVerOf, dirMcLib, mcVer, "");
+		// updateJson(dirMcVers, mcVerOf, dirMcLib, mcVer, "");
 		updateLauncherJson(dirMc, mcVerOf);
 	}
-	
+
 	public static void installJar(File jar, File folder, String name) throws IOException {
 		Files.copy(jar, new File(folder, name));
 	}
-	
+
 	public static File getJar() throws URISyntaxException {
 		return new File(Installer.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 	}
-	
+
 	public static String getJson() {
-		BufferedReader r = new BufferedReader(new InputStreamReader(Installer.class.getResourceAsStream("/1.12.2.json")));
+		BufferedReader r = new BufferedReader(
+				new InputStreamReader(Installer.class.getResourceAsStream("/1.12.2.json")));
 		String Json = "";
 		String s;
 		try {
-			while((s = r.readLine()) != null) {
+			while ((s = r.readLine()) != null) {
 				Json = Json + s;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return Json;
 	}
 
@@ -131,44 +132,44 @@ public class Installer {
 		oswJson.close();
 	}
 
-    @SuppressWarnings("unused")
-	private static void updateJson(final File dirMcVers, final String mcVerOf, final File dirMcLib, final String mcVer, final String ofEd) throws IOException, ParseException {
-        final File dirMcVersOf = new File(dirMcVers, mcVerOf);
-        final File fileJson = new File(dirMcVersOf, String.valueOf(mcVerOf) + ".json");
-        final String Json = Utils.readFile(fileJson, "UTF-8");
-        final JsonParser jp = new JsonParser();
-        final JsonObject root = (JsonObject)jp.parse(Json);
-        final JsonObject rootNew = new JsonObject();
-        rootNew.addProperty("id", mcVerOf);
-        //rootNew.addProperty("inheritsFrom", mcVer);
-        rootNew.addProperty("time", formatDate(new Date()).toString());
-        rootNew.addProperty("releaseTime", formatDate(new Date()).toString());
-        rootNew.addProperty("type", "release");
-        final JsonArray libs = new JsonArray();
-        rootNew.add("libraries", libs);
-        String mainClass = root.get("mainClass").getAsString();
-        if (!mainClass.startsWith("net.minecraft.client.main.")) {
-            mainClass = "net.minecraft.client.main.Main";
-            rootNew.addProperty("mainClass", mainClass);
-            String mcArgs = root.get("minecraftArguments").getAsString();
-            if (mcArgs != null) {
-                mcArgs = String.valueOf(mcArgs);
-                rootNew.addProperty("minecraftArguments", mcArgs);
-            }
-            else {
-                rootNew.addProperty("minimumLauncherVersion", "21");
-                final JsonObject args = new JsonObject();
-                final JsonArray argsGame = new JsonArray();
-                args.add("game", argsGame);
-                rootNew.add("arguments", args);
-            }
-        }
-        final FileOutputStream fosJson = new FileOutputStream(fileJson);
-        final OutputStreamWriter oswJson = new OutputStreamWriter(fosJson, "UTF-8");
-        new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(rootNew, oswJson);
-        oswJson.flush();
-        oswJson.close();
-    }
+	@SuppressWarnings("unused")
+	private static void updateJson(final File dirMcVers, final String mcVerOf, final File dirMcLib, final String mcVer,
+			final String ofEd) throws IOException, ParseException {
+		final File dirMcVersOf = new File(dirMcVers, mcVerOf);
+		final File fileJson = new File(dirMcVersOf, String.valueOf(mcVerOf) + ".json");
+		final String Json = Utils.readFile(fileJson, "UTF-8");
+		final JsonParser jp = new JsonParser();
+		final JsonObject root = (JsonObject) jp.parse(Json);
+		final JsonObject rootNew = new JsonObject();
+		rootNew.addProperty("id", mcVerOf);
+		// rootNew.addProperty("inheritsFrom", mcVer);
+		rootNew.addProperty("time", formatDate(new Date()).toString());
+		rootNew.addProperty("releaseTime", formatDate(new Date()).toString());
+		rootNew.addProperty("type", "release");
+		final JsonArray libs = new JsonArray();
+		rootNew.add("libraries", libs);
+		String mainClass = root.get("mainClass").getAsString();
+		if (!mainClass.startsWith("net.minecraft.client.main.")) {
+			mainClass = "net.minecraft.client.main.Main";
+			rootNew.addProperty("mainClass", mainClass);
+			String mcArgs = root.get("minecraftArguments").getAsString();
+			if (mcArgs != null) {
+				mcArgs = String.valueOf(mcArgs);
+				rootNew.addProperty("minecraftArguments", mcArgs);
+			} else {
+				rootNew.addProperty("minimumLauncherVersion", "21");
+				final JsonObject args = new JsonObject();
+				final JsonArray argsGame = new JsonArray();
+				args.add("game", argsGame);
+				rootNew.add("arguments", args);
+			}
+		}
+		final FileOutputStream fosJson = new FileOutputStream(fileJson);
+		final OutputStreamWriter oswJson = new OutputStreamWriter(fosJson, "UTF-8");
+		new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(rootNew, oswJson);
+		oswJson.flush();
+		oswJson.close();
+	}
 
 	private static Object formatDate(final Date date) {
 		try {

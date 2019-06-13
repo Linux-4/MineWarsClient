@@ -2,16 +2,15 @@ package net.minecraft.entity.ai.attributes;
 
 import javax.annotation.Nullable;
 
-public interface IAttribute
-{
-    String getAttributeUnlocalizedName();
+public interface IAttribute {
+	String getAttributeUnlocalizedName();
 
-    double clampValue(double value);
+	double clampValue(double value);
 
-    double getDefaultValue();
+	double getDefaultValue();
 
-    boolean getShouldWatch();
+	boolean getShouldWatch();
 
-    @Nullable
-    IAttribute getParent();
+	@Nullable
+	IAttribute getParent();
 }

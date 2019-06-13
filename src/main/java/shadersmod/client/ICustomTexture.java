@@ -1,10 +1,9 @@
 package shadersmod.client;
 
-public interface ICustomTexture
-{
-    int getTextureId();
+public interface ICustomTexture {
+	int getTextureId();
 
-    int getTextureUnit();
+	int getTextureUnit();
 
-    void deleteTexture();
+	void deleteTexture();
 }

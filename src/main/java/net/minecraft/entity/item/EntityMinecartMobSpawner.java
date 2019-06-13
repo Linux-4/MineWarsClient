@@ -15,95 +15,80 @@ import net.minecraft.util.datafix.IDataWalker;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityMinecartMobSpawner extends EntityMinecart
-{
-    /** Mob spawner logic for this spawner minecart. */
-    private final MobSpawnerBaseLogic mobSpawnerLogic = new MobSpawnerBaseLogic()
-    {
-        public void broadcastEvent(int id)
-        {
-            EntityMinecartMobSpawner.this.world.setEntityState(EntityMinecartMobSpawner.this, (byte)id);
-        }
-        public World getSpawnerWorld()
-        {
-            return EntityMinecartMobSpawner.this.world;
-        }
-        public BlockPos getSpawnerPosition()
-        {
-            return new BlockPos(EntityMinecartMobSpawner.this);
-        }
-    };
+public class EntityMinecartMobSpawner extends EntityMinecart {
+	/** Mob spawner logic for this spawner minecart. */
+	private final MobSpawnerBaseLogic mobSpawnerLogic = new MobSpawnerBaseLogic() {
+		public void broadcastEvent(int id) {
+			EntityMinecartMobSpawner.this.world.setEntityState(EntityMinecartMobSpawner.this, (byte) id);
+		}
 
-    public EntityMinecartMobSpawner(World worldIn)
-    {
-        super(worldIn);
-    }
+		public World getSpawnerWorld() {
+			return EntityMinecartMobSpawner.this.world;
+		}
 
-    public EntityMinecartMobSpawner(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+		public BlockPos getSpawnerPosition() {
+			return new BlockPos(EntityMinecartMobSpawner.this);
+		}
+	};
 
-    public static void registerFixesMinecartMobSpawner(DataFixer fixer)
-    {
-        registerFixesMinecart(fixer, EntityMinecartMobSpawner.class);
-        fixer.registerWalker(FixTypes.ENTITY, new IDataWalker()
-        {
-            public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn)
-            {
-                String s = compound.getString("id");
+	public EntityMinecartMobSpawner(World worldIn) {
+		super(worldIn);
+	}
 
-                if (EntityList.func_191306_a(EntityMinecartMobSpawner.class).equals(new ResourceLocation(s)))
-                {
-                    compound.setString("id", TileEntity.func_190559_a(TileEntityMobSpawner.class).toString());
-                    fixer.process(FixTypes.BLOCK_ENTITY, compound, versionIn);
-                    compound.setString("id", s);
-                }
+	public EntityMinecartMobSpawner(World worldIn, double x, double y, double z) {
+		super(worldIn, x, y, z);
+	}
 
-                return compound;
-            }
-        });
-    }
+	public static void registerFixesMinecartMobSpawner(DataFixer fixer) {
+		registerFixesMinecart(fixer, EntityMinecartMobSpawner.class);
+		fixer.registerWalker(FixTypes.ENTITY, new IDataWalker() {
+			public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn) {
+				String s = compound.getString("id");
 
-    public EntityMinecart.Type getType()
-    {
-        return EntityMinecart.Type.SPAWNER;
-    }
+				if (EntityList.func_191306_a(EntityMinecartMobSpawner.class).equals(new ResourceLocation(s))) {
+					compound.setString("id", TileEntity.func_190559_a(TileEntityMobSpawner.class).toString());
+					fixer.process(FixTypes.BLOCK_ENTITY, compound, versionIn);
+					compound.setString("id", s);
+				}
 
-    public IBlockState getDefaultDisplayTile()
-    {
-        return Blocks.MOB_SPAWNER.getDefaultState();
-    }
+				return compound;
+			}
+		});
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    protected void readEntityFromNBT(NBTTagCompound compound)
-    {
-        super.readEntityFromNBT(compound);
-        this.mobSpawnerLogic.readFromNBT(compound);
-    }
+	public EntityMinecart.Type getType() {
+		return EntityMinecart.Type.SPAWNER;
+	}
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    protected void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        this.mobSpawnerLogic.writeToNBT(compound);
-    }
+	public IBlockState getDefaultDisplayTile() {
+		return Blocks.MOB_SPAWNER.getDefaultState();
+	}
 
-    public void handleStatusUpdate(byte id)
-    {
-        this.mobSpawnerLogic.setDelayToMin(id);
-    }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	protected void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		this.mobSpawnerLogic.readFromNBT(compound);
+	}
 
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        super.onUpdate();
-        this.mobSpawnerLogic.updateSpawner();
-    }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	protected void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		this.mobSpawnerLogic.writeToNBT(compound);
+	}
+
+	public void handleStatusUpdate(byte id) {
+		this.mobSpawnerLogic.setDelayToMin(id);
+	}
+
+	/**
+	 * Called to update the entity's position/logic.
+	 */
+	public void onUpdate() {
+		super.onUpdate();
+		this.mobSpawnerLogic.updateSpawner();
+	}
 }

@@ -13,92 +13,74 @@ import java.util.Set;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.client.renderer.block.model.VariantList;
 
-public class Multipart
-{
-    private final List<Selector> selectors;
-    private BlockStateContainer stateContainer;
+public class Multipart {
+	private final List<Selector> selectors;
+	private BlockStateContainer stateContainer;
 
-    public Multipart(List<Selector> selectorsIn)
-    {
-        this.selectors = selectorsIn;
-    }
+	public Multipart(List<Selector> selectorsIn) {
+		this.selectors = selectorsIn;
+	}
 
-    public List<Selector> getSelectors()
-    {
-        return this.selectors;
-    }
+	public List<Selector> getSelectors() {
+		return this.selectors;
+	}
 
-    public Set<VariantList> getVariants()
-    {
-        Set<VariantList> set = Sets.<VariantList>newHashSet();
+	public Set<VariantList> getVariants() {
+		Set<VariantList> set = Sets.<VariantList>newHashSet();
 
-        for (Selector selector : this.selectors)
-        {
-            set.add(selector.getVariantList());
-        }
+		for (Selector selector : this.selectors) {
+			set.add(selector.getVariantList());
+		}
 
-        return set;
-    }
+		return set;
+	}
 
-    public void setStateContainer(BlockStateContainer stateContainerIn)
-    {
-        this.stateContainer = stateContainerIn;
-    }
+	public void setStateContainer(BlockStateContainer stateContainerIn) {
+		this.stateContainer = stateContainerIn;
+	}
 
-    public BlockStateContainer getStateContainer()
-    {
-        return this.stateContainer;
-    }
+	public BlockStateContainer getStateContainer() {
+		return this.stateContainer;
+	}
 
-    public boolean equals(Object p_equals_1_)
-    {
-        if (this == p_equals_1_)
-        {
-            return true;
-        }
-        else
-        {
-            if (p_equals_1_ instanceof Multipart)
-            {
-                Multipart multipart = (Multipart)p_equals_1_;
+	public boolean equals(Object p_equals_1_) {
+		if (this == p_equals_1_) {
+			return true;
+		} else {
+			if (p_equals_1_ instanceof Multipart) {
+				Multipart multipart = (Multipart) p_equals_1_;
 
-                if (this.selectors.equals(multipart.selectors))
-                {
-                    if (this.stateContainer == null)
-                    {
-                        return multipart.stateContainer == null;
-                    }
+				if (this.selectors.equals(multipart.selectors)) {
+					if (this.stateContainer == null) {
+						return multipart.stateContainer == null;
+					}
 
-                    return this.stateContainer.equals(multipart.stateContainer);
-                }
-            }
+					return this.stateContainer.equals(multipart.stateContainer);
+				}
+			}
 
-            return false;
-        }
-    }
+			return false;
+		}
+	}
 
-    public int hashCode()
-    {
-        return 31 * this.selectors.hashCode() + (this.stateContainer == null ? 0 : this.stateContainer.hashCode());
-    }
+	public int hashCode() {
+		return 31 * this.selectors.hashCode() + (this.stateContainer == null ? 0 : this.stateContainer.hashCode());
+	}
 
-    public static class Deserializer implements JsonDeserializer<Multipart>
-    {
-        public Multipart deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
-        {
-            return new Multipart(this.getSelectors(p_deserialize_3_, p_deserialize_1_.getAsJsonArray()));
-        }
+	public static class Deserializer implements JsonDeserializer<Multipart> {
+		public Multipart deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_,
+				JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
+			return new Multipart(this.getSelectors(p_deserialize_3_, p_deserialize_1_.getAsJsonArray()));
+		}
 
-        private List<Selector> getSelectors(JsonDeserializationContext context, JsonArray elements)
-        {
-            List<Selector> list = Lists.<Selector>newArrayList();
+		private List<Selector> getSelectors(JsonDeserializationContext context, JsonArray elements) {
+			List<Selector> list = Lists.<Selector>newArrayList();
 
-            for (JsonElement jsonelement : elements)
-            {
-                list.add((Selector)context.deserialize(jsonelement, Selector.class));
-            }
+			for (JsonElement jsonelement : elements) {
+				list.add((Selector) context.deserialize(jsonelement, Selector.class));
+			}
 
-            return list;
-        }
-    }
+			return list;
+		}
+	}
 }

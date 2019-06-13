@@ -10,46 +10,35 @@ import net.minecraft.entity.projectile.EntityShulkerBullet;
 import optifine.Config;
 import optifine.Reflector;
 
-public class ModelAdapterShulkerBullet extends ModelAdapter
-{
-    public ModelAdapterShulkerBullet()
-    {
-        super(EntityShulkerBullet.class, "shulker_bullet", 0.0F);
-    }
+public class ModelAdapterShulkerBullet extends ModelAdapter {
+	public ModelAdapterShulkerBullet() {
+		super(EntityShulkerBullet.class, "shulker_bullet", 0.0F);
+	}
 
-    public ModelBase makeModel()
-    {
-        return new ModelShulkerBullet();
-    }
+	public ModelBase makeModel() {
+		return new ModelShulkerBullet();
+	}
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelShulkerBullet))
-        {
-            return null;
-        }
-        else
-        {
-            ModelShulkerBullet modelshulkerbullet = (ModelShulkerBullet)model;
-            return modelPart.equals("bullet") ? modelshulkerbullet.renderer : null;
-        }
-    }
+	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+		if (!(model instanceof ModelShulkerBullet)) {
+			return null;
+		} else {
+			ModelShulkerBullet modelshulkerbullet = (ModelShulkerBullet) model;
+			return modelPart.equals("bullet") ? modelshulkerbullet.renderer : null;
+		}
+	}
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
-        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        RenderShulkerBullet rendershulkerbullet = new RenderShulkerBullet(rendermanager);
+	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		RenderShulkerBullet rendershulkerbullet = new RenderShulkerBullet(rendermanager);
 
-        if (!Reflector.RenderShulkerBullet_model.exists())
-        {
-            Config.warn("Field not found: RenderShulkerBullet.model");
-            return null;
-        }
-        else
-        {
-            Reflector.setFieldValue(rendershulkerbullet, Reflector.RenderShulkerBullet_model, modelBase);
-            rendershulkerbullet.shadowSize = shadowSize;
-            return rendershulkerbullet;
-        }
-    }
+		if (!Reflector.RenderShulkerBullet_model.exists()) {
+			Config.warn("Field not found: RenderShulkerBullet.model");
+			return null;
+		} else {
+			Reflector.setFieldValue(rendershulkerbullet, Reflector.RenderShulkerBullet_model, modelBase);
+			rendershulkerbullet.shadowSize = shadowSize;
+			return rendershulkerbullet;
+		}
+	}
 }

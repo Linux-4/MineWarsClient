@@ -22,133 +22,108 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class ItemWrittenBook extends Item
-{
-    public ItemWrittenBook()
-    {
-        this.setMaxStackSize(1);
-    }
+public class ItemWrittenBook extends Item {
+	public ItemWrittenBook() {
+		this.setMaxStackSize(1);
+	}
 
-    public static boolean validBookTagContents(NBTTagCompound nbt)
-    {
-        if (!ItemWritableBook.isNBTValid(nbt))
-        {
-            return false;
-        }
-        else if (!nbt.hasKey("title", 8))
-        {
-            return false;
-        }
-        else
-        {
-            String s = nbt.getString("title");
-            return s != null && s.length() <= 32 ? nbt.hasKey("author", 8) : false;
-        }
-    }
+	public static boolean validBookTagContents(NBTTagCompound nbt) {
+		if (!ItemWritableBook.isNBTValid(nbt)) {
+			return false;
+		} else if (!nbt.hasKey("title", 8)) {
+			return false;
+		} else {
+			String s = nbt.getString("title");
+			return s != null && s.length() <= 32 ? nbt.hasKey("author", 8) : false;
+		}
+	}
 
-    /**
-     * Gets the generation of the book (how many times it has been cloned)
-     */
-    public static int getGeneration(ItemStack book)
-    {
-        return book.getTagCompound().getInteger("generation");
-    }
+	/**
+	 * Gets the generation of the book (how many times it has been cloned)
+	 */
+	public static int getGeneration(ItemStack book) {
+		return book.getTagCompound().getInteger("generation");
+	}
 
-    public String getItemStackDisplayName(ItemStack stack)
-    {
-        if (stack.hasTagCompound())
-        {
-            NBTTagCompound nbttagcompound = stack.getTagCompound();
-            String s = nbttagcompound.getString("title");
+	public String getItemStackDisplayName(ItemStack stack) {
+		if (stack.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
+			String s = nbttagcompound.getString("title");
 
-            if (!StringUtils.isNullOrEmpty(s))
-            {
-                return s;
-            }
-        }
+			if (!StringUtils.isNullOrEmpty(s)) {
+				return s;
+			}
+		}
 
-        return super.getItemStackDisplayName(stack);
-    }
+		return super.getItemStackDisplayName(stack);
+	}
 
-    /**
-     * allows items to add custom lines of information to the mouseover description
-     */
-    public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced)
-    {
-        if (stack.hasTagCompound())
-        {
-            NBTTagCompound nbttagcompound = stack.getTagCompound();
-            String s = nbttagcompound.getString("author");
+	/**
+	 * allows items to add custom lines of information to the mouseover description
+	 */
+	public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
+		if (stack.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
+			String s = nbttagcompound.getString("author");
 
-            if (!StringUtils.isNullOrEmpty(s))
-            {
-                tooltip.add(TextFormatting.GRAY + I18n.translateToLocalFormatted("book.byAuthor", s));
-            }
+			if (!StringUtils.isNullOrEmpty(s)) {
+				tooltip.add(TextFormatting.GRAY + I18n.translateToLocalFormatted("book.byAuthor", s));
+			}
 
-            tooltip.add(TextFormatting.GRAY + I18n.translateToLocal("book.generation." + nbttagcompound.getInteger("generation")));
-        }
-    }
+			tooltip.add(TextFormatting.GRAY
+					+ I18n.translateToLocal("book.generation." + nbttagcompound.getInteger("generation")));
+		}
+	}
 
-    public ActionResult<ItemStack> onItemRightClick(World itemStackIn, EntityPlayer worldIn, EnumHand playerIn)
-    {
-        ItemStack itemstack = worldIn.getHeldItem(playerIn);
+	public ActionResult<ItemStack> onItemRightClick(World itemStackIn, EntityPlayer worldIn, EnumHand playerIn) {
+		ItemStack itemstack = worldIn.getHeldItem(playerIn);
 
-        if (!itemStackIn.isRemote)
-        {
-            this.resolveContents(itemstack, worldIn);
-        }
+		if (!itemStackIn.isRemote) {
+			this.resolveContents(itemstack, worldIn);
+		}
 
-        worldIn.openBook(itemstack, playerIn);
-        worldIn.addStat(StatList.getObjectUseStats(this));
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-    }
+		worldIn.openBook(itemstack, playerIn);
+		worldIn.addStat(StatList.getObjectUseStats(this));
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+	}
 
-    private void resolveContents(ItemStack stack, EntityPlayer player)
-    {
-        if (stack.getTagCompound() != null)
-        {
-            NBTTagCompound nbttagcompound = stack.getTagCompound();
+	private void resolveContents(ItemStack stack, EntityPlayer player) {
+		if (stack.getTagCompound() != null) {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
 
-            if (!nbttagcompound.getBoolean("resolved"))
-            {
-                nbttagcompound.setBoolean("resolved", true);
+			if (!nbttagcompound.getBoolean("resolved")) {
+				nbttagcompound.setBoolean("resolved", true);
 
-                if (validBookTagContents(nbttagcompound))
-                {
-                    NBTTagList nbttaglist = nbttagcompound.getTagList("pages", 8);
+				if (validBookTagContents(nbttagcompound)) {
+					NBTTagList nbttaglist = nbttagcompound.getTagList("pages", 8);
 
-                    for (int i = 0; i < nbttaglist.tagCount(); ++i)
-                    {
-                        String s = nbttaglist.getStringTagAt(i);
-                        ITextComponent itextcomponent;
+					for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+						String s = nbttaglist.getStringTagAt(i);
+						ITextComponent itextcomponent;
 
-                        try
-                        {
-                            itextcomponent = ITextComponent.Serializer.fromJsonLenient(s);
-                            itextcomponent = TextComponentUtils.processComponent(player, itextcomponent, player);
-                        }
-                        catch (Exception var9)
-                        {
-                            itextcomponent = new TextComponentString(s);
-                        }
+						try {
+							itextcomponent = ITextComponent.Serializer.fromJsonLenient(s);
+							itextcomponent = TextComponentUtils.processComponent(player, itextcomponent, player);
+						} catch (Exception var9) {
+							itextcomponent = new TextComponentString(s);
+						}
 
-                        nbttaglist.set(i, new NBTTagString(ITextComponent.Serializer.componentToJson(itextcomponent)));
-                    }
+						nbttaglist.set(i, new NBTTagString(ITextComponent.Serializer.componentToJson(itextcomponent)));
+					}
 
-                    nbttagcompound.setTag("pages", nbttaglist);
+					nbttagcompound.setTag("pages", nbttaglist);
 
-                    if (player instanceof EntityPlayerMP && player.getHeldItemMainhand() == stack)
-                    {
-                        Slot slot = player.openContainer.getSlotFromInventory(player.inventory, player.inventory.currentItem);
-                        ((EntityPlayerMP)player).connection.sendPacket(new SPacketSetSlot(0, slot.slotNumber, stack));
-                    }
-                }
-            }
-        }
-    }
+					if (player instanceof EntityPlayerMP && player.getHeldItemMainhand() == stack) {
+						Slot slot = player.openContainer.getSlotFromInventory(player.inventory,
+								player.inventory.currentItem);
+						((EntityPlayerMP) player).connection.sendPacket(new SPacketSetSlot(0, slot.slotNumber, stack));
+					}
+				}
+			}
+		}
+	}
 
-    public boolean hasEffect(ItemStack stack)
-    {
-        return true;
-    }
+	public boolean hasEffect(ItemStack stack) {
+		return true;
+	}
 }

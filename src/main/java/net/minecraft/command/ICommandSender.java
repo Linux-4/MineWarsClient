@@ -9,63 +9,56 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
-public interface ICommandSender
-{
-    /**
-     * Get the name of this object. For players this returns their username
-     */
-    String getName();
+public interface ICommandSender {
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	String getName();
 
-default ITextComponent getDisplayName()
-    {
-        return new TextComponentString(this.getName());
-    }
+	default ITextComponent getDisplayName() {
+		return new TextComponentString(this.getName());
+	}
 
-default void addChatMessage(ITextComponent component)
-    {
-    }
+	default void addChatMessage(ITextComponent component) {
+	}
 
-    /**
-     * Returns {@code true} if the CommandSender is allowed to execute the command, {@code false} if not
-     */
-    boolean canCommandSenderUseCommand(int permLevel, String commandName);
+	/**
+	 * Returns {@code true} if the CommandSender is allowed to execute the command,
+	 * {@code false} if not
+	 */
+	boolean canCommandSenderUseCommand(int permLevel, String commandName);
 
-default BlockPos getPosition()
-    {
-        return BlockPos.ORIGIN;
-    }
+	default BlockPos getPosition() {
+		return BlockPos.ORIGIN;
+	}
 
-default Vec3d getPositionVector()
-    {
-        return Vec3d.ZERO;
-    }
+	default Vec3d getPositionVector() {
+		return Vec3d.ZERO;
+	}
 
-    /**
-     * Get the world, if available. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
-     * the overworld
-     */
-    World getEntityWorld();
+	/**
+	 * Get the world, if available. <b>{@code null} is not allowed!</b> If you are
+	 * not an entity in the world, return the overworld
+	 */
+	World getEntityWorld();
 
-    @Nullable
+	@Nullable
 
-default Entity getCommandSenderEntity()
-    {
-        return null;
-    }
+	default Entity getCommandSenderEntity() {
+		return null;
+	}
 
-default boolean sendCommandFeedback()
-    {
-        return false;
-    }
+	default boolean sendCommandFeedback() {
+		return false;
+	}
 
-default void setCommandStat(CommandResultStats.Type type, int amount)
-    {
-    }
+	default void setCommandStat(CommandResultStats.Type type, int amount) {
+	}
 
-    @Nullable
+	@Nullable
 
-    /**
-     * Get the Minecraft server instance
-     */
-    MinecraftServer getServer();
+	/**
+	 * Get the Minecraft server instance
+	 */
+	MinecraftServer getServer();
 }

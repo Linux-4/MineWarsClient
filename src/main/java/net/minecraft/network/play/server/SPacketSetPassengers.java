@@ -7,60 +7,51 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketSetPassengers implements Packet<INetHandlerPlayClient>
-{
-    private int entityId;
-    private int[] passengerIds;
+public class SPacketSetPassengers implements Packet<INetHandlerPlayClient> {
+	private int entityId;
+	private int[] passengerIds;
 
-    public SPacketSetPassengers()
-    {
-    }
+	public SPacketSetPassengers() {
+	}
 
-    public SPacketSetPassengers(Entity entityIn)
-    {
-        this.entityId = entityIn.getEntityId();
-        List<Entity> list = entityIn.getPassengers();
-        this.passengerIds = new int[list.size()];
+	public SPacketSetPassengers(Entity entityIn) {
+		this.entityId = entityIn.getEntityId();
+		List<Entity> list = entityIn.getPassengers();
+		this.passengerIds = new int[list.size()];
 
-        for (int i = 0; i < list.size(); ++i)
-        {
-            this.passengerIds[i] = ((Entity)list.get(i)).getEntityId();
-        }
-    }
+		for (int i = 0; i < list.size(); ++i) {
+			this.passengerIds[i] = ((Entity) list.get(i)).getEntityId();
+		}
+	}
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        this.entityId = buf.readVarIntFromBuffer();
-        this.passengerIds = buf.readVarIntArray();
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+		this.entityId = buf.readVarIntFromBuffer();
+		this.passengerIds = buf.readVarIntArray();
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarIntToBuffer(this.entityId);
-        buf.writeVarIntArray(this.passengerIds);
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+		buf.writeVarIntToBuffer(this.entityId);
+		buf.writeVarIntArray(this.passengerIds);
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleSetPassengers(this);
-    }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+		handler.handleSetPassengers(this);
+	}
 
-    public int[] getPassengerIds()
-    {
-        return this.passengerIds;
-    }
+	public int[] getPassengerIds() {
+		return this.passengerIds;
+	}
 
-    public int getEntityId()
-    {
-        return this.entityId;
-    }
+	public int getEntityId() {
+		return this.entityId;
+	}
 }

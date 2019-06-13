@@ -10,70 +10,52 @@ import net.minecraft.tileentity.TileEntityBanner;
 import optifine.Config;
 import optifine.Reflector;
 
-public class ModelAdapterBanner extends ModelAdapter
-{
-    public ModelAdapterBanner()
-    {
-        super(TileEntityBanner.class, "banner", 0.0F);
-    }
+public class ModelAdapterBanner extends ModelAdapter {
+	public ModelAdapterBanner() {
+		super(TileEntityBanner.class, "banner", 0.0F);
+	}
 
-    public ModelBase makeModel()
-    {
-        return new ModelBanner();
-    }
+	public ModelBase makeModel() {
+		return new ModelBanner();
+	}
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelBanner))
-        {
-            return null;
-        }
-        else
-        {
-            ModelBanner modelbanner = (ModelBanner)model;
+	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+		if (!(model instanceof ModelBanner)) {
+			return null;
+		} else {
+			ModelBanner modelbanner = (ModelBanner) model;
 
-            if (modelPart.equals("slate"))
-            {
-                return modelbanner.bannerSlate;
-            }
-            else if (modelPart.equals("stand"))
-            {
-                return modelbanner.bannerStand;
-            }
-            else
-            {
-                return modelPart.equals("top") ? modelbanner.bannerTop : null;
-            }
-        }
-    }
+			if (modelPart.equals("slate")) {
+				return modelbanner.bannerSlate;
+			} else if (modelPart.equals("stand")) {
+				return modelbanner.bannerStand;
+			} else {
+				return modelPart.equals("top") ? modelbanner.bannerTop : null;
+			}
+		}
+	}
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
-        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
-        TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityBanner.class);
+	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
+		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher
+				.getSpecialRendererByClass(TileEntityBanner.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntityBannerRenderer))
-        {
-            return null;
-        }
-        else
-        {
-            if (tileentityspecialrenderer.getEntityClass() == null)
-            {
-                tileentityspecialrenderer = new TileEntityBannerRenderer();
-                tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
-            }
+		if (!(tileentityspecialrenderer instanceof TileEntityBannerRenderer)) {
+			return null;
+		} else {
+			if (tileentityspecialrenderer.getEntityClass() == null) {
+				tileentityspecialrenderer = new TileEntityBannerRenderer();
+				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
+			}
 
-            if (!Reflector.TileEntityBannerRenderer_bannerModel.exists())
-            {
-                Config.warn("Field not found: TileEntityBannerRenderer.bannerModel");
-                return null;
-            }
-            else
-            {
-                Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityBannerRenderer_bannerModel, modelBase);
-                return tileentityspecialrenderer;
-            }
-        }
-    }
+			if (!Reflector.TileEntityBannerRenderer_bannerModel.exists()) {
+				Config.warn("Field not found: TileEntityBannerRenderer.bannerModel");
+				return null;
+			} else {
+				Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityBannerRenderer_bannerModel,
+						modelBase);
+				return tileentityspecialrenderer;
+			}
+		}
+	}
 }

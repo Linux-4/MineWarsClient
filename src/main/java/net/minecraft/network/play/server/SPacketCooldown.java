@@ -6,54 +6,46 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 
-public class SPacketCooldown implements Packet<INetHandlerPlayClient>
-{
-    private Item item;
-    private int ticks;
+public class SPacketCooldown implements Packet<INetHandlerPlayClient> {
+	private Item item;
+	private int ticks;
 
-    public SPacketCooldown()
-    {
-    }
+	public SPacketCooldown() {
+	}
 
-    public SPacketCooldown(Item itemIn, int ticksIn)
-    {
-        this.item = itemIn;
-        this.ticks = ticksIn;
-    }
+	public SPacketCooldown(Item itemIn, int ticksIn) {
+		this.item = itemIn;
+		this.ticks = ticksIn;
+	}
 
-    /**
-     * Reads the raw packet data from the data stream.
-     */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        this.item = Item.getItemById(buf.readVarIntFromBuffer());
-        this.ticks = buf.readVarIntFromBuffer();
-    }
+	/**
+	 * Reads the raw packet data from the data stream.
+	 */
+	public void readPacketData(PacketBuffer buf) throws IOException {
+		this.item = Item.getItemById(buf.readVarIntFromBuffer());
+		this.ticks = buf.readVarIntFromBuffer();
+	}
 
-    /**
-     * Writes the raw packet data to the data stream.
-     */
-    public void writePacketData(PacketBuffer buf) throws IOException
-    {
-        buf.writeVarIntToBuffer(Item.getIdFromItem(this.item));
-        buf.writeVarIntToBuffer(this.ticks);
-    }
+	/**
+	 * Writes the raw packet data to the data stream.
+	 */
+	public void writePacketData(PacketBuffer buf) throws IOException {
+		buf.writeVarIntToBuffer(Item.getIdFromItem(this.item));
+		buf.writeVarIntToBuffer(this.ticks);
+	}
 
-    /**
-     * Passes this Packet on to the NetHandler for processing.
-     */
-    public void processPacket(INetHandlerPlayClient handler)
-    {
-        handler.handleCooldown(this);
-    }
+	/**
+	 * Passes this Packet on to the NetHandler for processing.
+	 */
+	public void processPacket(INetHandlerPlayClient handler) {
+		handler.handleCooldown(this);
+	}
 
-    public Item getItem()
-    {
-        return this.item;
-    }
+	public Item getItem() {
+		return this.item;
+	}
 
-    public int getTicks()
-    {
-        return this.ticks;
-    }
+	public int getTicks() {
+		return this.ticks;
+	}
 }

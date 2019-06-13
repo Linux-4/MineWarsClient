@@ -13,64 +13,52 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 
-public class EntityMinecartChest extends EntityMinecartContainer
-{
-    public EntityMinecartChest(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntityMinecartChest extends EntityMinecartContainer {
+	public EntityMinecartChest(World worldIn) {
+		super(worldIn);
+	}
 
-    public EntityMinecartChest(World worldIn, double x, double y, double z)
-    {
-        super(worldIn, x, y, z);
-    }
+	public EntityMinecartChest(World worldIn, double x, double y, double z) {
+		super(worldIn, x, y, z);
+	}
 
-    public static void registerFixesMinecartChest(DataFixer fixer)
-    {
-        EntityMinecartContainer.func_190574_b(fixer, EntityMinecartChest.class);
-    }
+	public static void registerFixesMinecartChest(DataFixer fixer) {
+		EntityMinecartContainer.func_190574_b(fixer, EntityMinecartChest.class);
+	}
 
-    public void killMinecart(DamageSource source)
-    {
-        super.killMinecart(source);
+	public void killMinecart(DamageSource source) {
+		super.killMinecart(source);
 
-        if (this.world.getGameRules().getBoolean("doEntityDrops"))
-        {
-            this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
-        }
-    }
+		if (this.world.getGameRules().getBoolean("doEntityDrops")) {
+			this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
+		}
+	}
 
-    /**
-     * Returns the number of slots in the inventory.
-     */
-    public int getSizeInventory()
-    {
-        return 27;
-    }
+	/**
+	 * Returns the number of slots in the inventory.
+	 */
+	public int getSizeInventory() {
+		return 27;
+	}
 
-    public EntityMinecart.Type getType()
-    {
-        return EntityMinecart.Type.CHEST;
-    }
+	public EntityMinecart.Type getType() {
+		return EntityMinecart.Type.CHEST;
+	}
 
-    public IBlockState getDefaultDisplayTile()
-    {
-        return Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.NORTH);
-    }
+	public IBlockState getDefaultDisplayTile() {
+		return Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.NORTH);
+	}
 
-    public int getDefaultDisplayTileOffset()
-    {
-        return 8;
-    }
+	public int getDefaultDisplayTileOffset() {
+		return 8;
+	}
 
-    public String getGuiID()
-    {
-        return "minecraft:chest";
-    }
+	public String getGuiID() {
+		return "minecraft:chest";
+	}
 
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        this.addLoot(playerIn);
-        return new ContainerChest(playerInventory, this, playerIn);
-    }
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+		this.addLoot(playerIn);
+		return new ContainerChest(playerInventory, this, playerIn);
+	}
 }

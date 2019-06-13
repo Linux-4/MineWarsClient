@@ -11,48 +11,41 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockSeaLantern extends Block
-{
-    public BlockSeaLantern(Material materialIn)
-    {
-        super(materialIn);
-        this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
-    }
+public class BlockSeaLantern extends Block {
+	public BlockSeaLantern(Material materialIn) {
+		super(materialIn);
+		this.setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	}
 
-    /**
-     * Returns the quantity of items to drop on block destruction.
-     */
-    public int quantityDropped(Random random)
-    {
-        return 2 + random.nextInt(2);
-    }
+	/**
+	 * Returns the quantity of items to drop on block destruction.
+	 */
+	public int quantityDropped(Random random) {
+		return 2 + random.nextInt(2);
+	}
 
-    /**
-     * Get the quantity dropped based on the given fortune level
-     */
-    public int quantityDroppedWithBonus(int fortune, Random random)
-    {
-        return MathHelper.clamp(this.quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
-    }
+	/**
+	 * Get the quantity dropped based on the given fortune level
+	 */
+	public int quantityDroppedWithBonus(int fortune, Random random) {
+		return MathHelper.clamp(this.quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
+	}
 
-    /**
-     * Get the Item that this Block should drop when harvested.
-     */
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
-        return Items.PRISMARINE_CRYSTALS;
-    }
+	/**
+	 * Get the Item that this Block should drop when harvested.
+	 */
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return Items.PRISMARINE_CRYSTALS;
+	}
 
-    /**
-     * Get the MapColor for this Block and the given BlockState
-     */
-    public MapColor getMapColor(IBlockState state, IBlockAccess p_180659_2_, BlockPos p_180659_3_)
-    {
-        return MapColor.QUARTZ;
-    }
+	/**
+	 * Get the MapColor for this Block and the given BlockState
+	 */
+	public MapColor getMapColor(IBlockState state, IBlockAccess p_180659_2_, BlockPos p_180659_3_) {
+		return MapColor.QUARTZ;
+	}
 
-    protected boolean canSilkHarvest()
-    {
-        return true;
-    }
+	protected boolean canSilkHarvest() {
+		return true;
+	}
 }

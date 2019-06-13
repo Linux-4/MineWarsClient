@@ -5,95 +5,79 @@ import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIRunAroundLikeCrazy extends EntityAIBase
-{
-    private final AbstractHorse horseHost;
-    private final double speed;
-    private double targetX;
-    private double targetY;
-    private double targetZ;
+public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
+	private final AbstractHorse horseHost;
+	private final double speed;
+	private double targetX;
+	private double targetY;
+	private double targetZ;
 
-    public EntityAIRunAroundLikeCrazy(AbstractHorse horse, double speedIn)
-    {
-        this.horseHost = horse;
-        this.speed = speedIn;
-        this.setMutexBits(1);
-    }
+	public EntityAIRunAroundLikeCrazy(AbstractHorse horse, double speedIn) {
+		this.horseHost = horse;
+		this.speed = speedIn;
+		this.setMutexBits(1);
+	}
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    public boolean shouldExecute()
-    {
-        if (!this.horseHost.isTame() && this.horseHost.isBeingRidden())
-        {
-            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.horseHost, 5, 4);
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	public boolean shouldExecute() {
+		if (!this.horseHost.isTame() && this.horseHost.isBeingRidden()) {
+			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.horseHost, 5, 4);
 
-            if (vec3d == null)
-            {
-                return false;
-            }
-            else
-            {
-                this.targetX = vec3d.xCoord;
-                this.targetY = vec3d.yCoord;
-                this.targetZ = vec3d.zCoord;
-                return true;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
+			if (vec3d == null) {
+				return false;
+			} else {
+				this.targetX = vec3d.xCoord;
+				this.targetY = vec3d.yCoord;
+				this.targetZ = vec3d.zCoord;
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void startExecuting()
-    {
-        this.horseHost.getNavigator().tryMoveToXYZ(this.targetX, this.targetY, this.targetZ, this.speed);
-    }
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	public void startExecuting() {
+		this.horseHost.getNavigator().tryMoveToXYZ(this.targetX, this.targetY, this.targetZ, this.speed);
+	}
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    public boolean continueExecuting()
-    {
-        return !this.horseHost.isTame() && !this.horseHost.getNavigator().noPath() && this.horseHost.isBeingRidden();
-    }
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	public boolean continueExecuting() {
+		return !this.horseHost.isTame() && !this.horseHost.getNavigator().noPath() && this.horseHost.isBeingRidden();
+	}
 
-    /**
-     * Updates the task
-     */
-    public void updateTask()
-    {
-        if (!this.horseHost.isTame() && this.horseHost.getRNG().nextInt(50) == 0)
-        {
-            Entity entity = (Entity)this.horseHost.getPassengers().get(0);
+	/**
+	 * Updates the task
+	 */
+	public void updateTask() {
+		if (!this.horseHost.isTame() && this.horseHost.getRNG().nextInt(50) == 0) {
+			Entity entity = (Entity) this.horseHost.getPassengers().get(0);
 
-            if (entity == null)
-            {
-                return;
-            }
+			if (entity == null) {
+				return;
+			}
 
-            if (entity instanceof EntityPlayer)
-            {
-                int i = this.horseHost.getTemper();
-                int j = this.horseHost.func_190676_dC();
+			if (entity instanceof EntityPlayer) {
+				int i = this.horseHost.getTemper();
+				int j = this.horseHost.func_190676_dC();
 
-                if (j > 0 && this.horseHost.getRNG().nextInt(j) < i)
-                {
-                    this.horseHost.setTamedBy((EntityPlayer)entity);
-                    return;
-                }
+				if (j > 0 && this.horseHost.getRNG().nextInt(j) < i) {
+					this.horseHost.setTamedBy((EntityPlayer) entity);
+					return;
+				}
 
-                this.horseHost.increaseTemper(5);
-            }
+				this.horseHost.increaseTemper(5);
+			}
 
-            this.horseHost.removePassengers();
-            this.horseHost.func_190687_dF();
-            this.horseHost.world.setEntityState(this.horseHost, (byte)6);
-        }
-    }
+			this.horseHost.removePassengers();
+			this.horseHost.func_190687_dF();
+			this.horseHost.world.setEntityState(this.horseHost, (byte) 6);
+		}
+	}
 }

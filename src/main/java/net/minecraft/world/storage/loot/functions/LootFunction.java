@@ -9,45 +9,40 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 
-public abstract class LootFunction
-{
-    private final LootCondition[] conditions;
+public abstract class LootFunction {
+	private final LootCondition[] conditions;
 
-    protected LootFunction(LootCondition[] conditionsIn)
-    {
-        this.conditions = conditionsIn;
-    }
+	protected LootFunction(LootCondition[] conditionsIn) {
+		this.conditions = conditionsIn;
+	}
 
-    public abstract ItemStack apply(ItemStack stack, Random rand, LootContext context);
+	public abstract ItemStack apply(ItemStack stack, Random rand, LootContext context);
 
-    public LootCondition[] getConditions()
-    {
-        return this.conditions;
-    }
+	public LootCondition[] getConditions() {
+		return this.conditions;
+	}
 
-    public abstract static class Serializer<T extends LootFunction>
-    {
-        private final ResourceLocation lootTableLocation;
-        private final Class<T> functionClass;
+	public abstract static class Serializer<T extends LootFunction> {
+		private final ResourceLocation lootTableLocation;
+		private final Class<T> functionClass;
 
-        protected Serializer(ResourceLocation location, Class<T> clazz)
-        {
-            this.lootTableLocation = location;
-            this.functionClass = clazz;
-        }
+		protected Serializer(ResourceLocation location, Class<T> clazz) {
+			this.lootTableLocation = location;
+			this.functionClass = clazz;
+		}
 
-        public ResourceLocation getFunctionName()
-        {
-            return this.lootTableLocation;
-        }
+		public ResourceLocation getFunctionName() {
+			return this.lootTableLocation;
+		}
 
-        public Class<T> getFunctionClass()
-        {
-            return this.functionClass;
-        }
+		public Class<T> getFunctionClass() {
+			return this.functionClass;
+		}
 
-        public abstract void serialize(JsonObject object, T functionClazz, JsonSerializationContext serializationContext);
+		public abstract void serialize(JsonObject object, T functionClazz,
+				JsonSerializationContext serializationContext);
 
-        public abstract T deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn);
-    }
+		public abstract T deserialize(JsonObject object, JsonDeserializationContext deserializationContext,
+				LootCondition[] conditionsIn);
+	}
 }

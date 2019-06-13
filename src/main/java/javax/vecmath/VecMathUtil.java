@@ -27,14 +27,15 @@
 package javax.vecmath;
 
 /**
- * Utility vecmath class used when computing the hash code for vecmath
- * objects containing float or double values. This fixes Issue 36.
+ * Utility vecmath class used when computing the hash code for vecmath objects
+ * containing float or double values. This fixes Issue 36.
  */
 class VecMathUtil {
-/**
- * Do not construct an instance of this class.
- */
-private VecMathUtil() {}
+	/**
+	 * Do not construct an instance of this class.
+	 */
+	private VecMathUtil() {
+	}
 
 	static final long hashLongBits(long hash, long l) {
 		hash *= 31L;
@@ -63,6 +64,6 @@ private VecMathUtil() {}
 	 * Return an integer hash from a long by mixing it with itself.
 	 */
 	static final int hashFinish(long hash) {
-		return (int)(hash ^ (hash >> 32));
+		return (int) (hash ^ (hash >> 32));
 	}
 }

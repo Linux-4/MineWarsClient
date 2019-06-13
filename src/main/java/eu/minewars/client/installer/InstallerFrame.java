@@ -280,8 +280,8 @@ public class InstallerFrame extends JFrame {
 				this.ivjTextArea.setLineWrap(true);
 				this.ivjTextArea.setOpaque(false);
 				this.ivjTextArea.setPreferredSize(new Dimension(365, 44));
-				this.ivjTextArea.setText(
-						"Dieser Installer installiert " + MineWarsClient.NAME +" in den offiziellen Minecraft Launcher.");
+				this.ivjTextArea.setText("Dieser Installer installiert " + MineWarsClient.NAME
+						+ " in den offiziellen Minecraft Launcher.");
 				this.ivjTextArea.setWrapStyleWord(true);
 			} catch (Throwable ivjExc) {
 				this.handleException(ivjExc);

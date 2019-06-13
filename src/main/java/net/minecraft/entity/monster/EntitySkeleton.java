@@ -16,83 +16,67 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntitySkeleton extends AbstractSkeleton
-{
-    public EntitySkeleton(World worldIn)
-    {
-        super(worldIn);
-    }
+public class EntitySkeleton extends AbstractSkeleton {
+	public EntitySkeleton(World worldIn) {
+		super(worldIn);
+	}
 
-    public static void registerFixesSkeleton(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntitySkeleton.class);
-    }
+	public static void registerFixesSkeleton(DataFixer fixer) {
+		EntityLiving.registerFixesMob(fixer, EntitySkeleton.class);
+	}
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_SKELETON;
-    }
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return LootTableList.ENTITIES_SKELETON;
+	}
 
-    protected SoundEvent getAmbientSound()
-    {
-        return SoundEvents.ENTITY_SKELETON_AMBIENT;
-    }
+	protected SoundEvent getAmbientSound() {
+		return SoundEvents.ENTITY_SKELETON_AMBIENT;
+	}
 
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_)
-    {
-        return SoundEvents.ENTITY_SKELETON_HURT;
-    }
+	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+		return SoundEvents.ENTITY_SKELETON_HURT;
+	}
 
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_SKELETON_DEATH;
-    }
+	protected SoundEvent getDeathSound() {
+		return SoundEvents.ENTITY_SKELETON_DEATH;
+	}
 
-    SoundEvent func_190727_o()
-    {
-        return SoundEvents.ENTITY_SKELETON_STEP;
-    }
+	SoundEvent func_190727_o() {
+		return SoundEvents.ENTITY_SKELETON_STEP;
+	}
 
-    /**
-     * Called when the mob's health reaches 0.
-     */
-    public void onDeath(DamageSource cause)
-    {
-        super.onDeath(cause);
+	/**
+	 * Called when the mob's health reaches 0.
+	 */
+	public void onDeath(DamageSource cause) {
+		super.onDeath(cause);
 
-        if (cause.getEntity() instanceof EntityCreeper)
-        {
-            EntityCreeper entitycreeper = (EntityCreeper)cause.getEntity();
+		if (cause.getEntity() instanceof EntityCreeper) {
+			EntityCreeper entitycreeper = (EntityCreeper) cause.getEntity();
 
-            if (entitycreeper.getPowered() && entitycreeper.isAIEnabled())
-            {
-                entitycreeper.incrementDroppedSkulls();
-                this.entityDropItem(new ItemStack(Items.SKULL, 1, 0), 0.0F);
-            }
-        }
-    }
+			if (entitycreeper.getPowered() && entitycreeper.isAIEnabled()) {
+				entitycreeper.incrementDroppedSkulls();
+				this.entityDropItem(new ItemStack(Items.SKULL, 1, 0), 0.0F);
+			}
+		}
+	}
 
-    protected EntityArrow func_190726_a(float p_190726_1_)
-    {
-        ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
+	protected EntityArrow func_190726_a(float p_190726_1_) {
+		ItemStack itemstack = this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
 
-        if (itemstack.getItem() == Items.SPECTRAL_ARROW)
-        {
-            EntitySpectralArrow entityspectralarrow = new EntitySpectralArrow(this.world, this);
-            entityspectralarrow.func_190547_a(this, p_190726_1_);
-            return entityspectralarrow;
-        }
-        else
-        {
-            EntityArrow entityarrow = super.func_190726_a(p_190726_1_);
+		if (itemstack.getItem() == Items.SPECTRAL_ARROW) {
+			EntitySpectralArrow entityspectralarrow = new EntitySpectralArrow(this.world, this);
+			entityspectralarrow.func_190547_a(this, p_190726_1_);
+			return entityspectralarrow;
+		} else {
+			EntityArrow entityarrow = super.func_190726_a(p_190726_1_);
 
-            if (itemstack.getItem() == Items.TIPPED_ARROW && entityarrow instanceof EntityTippedArrow)
-            {
-                ((EntityTippedArrow)entityarrow).setPotionEffect(itemstack);
-            }
+			if (itemstack.getItem() == Items.TIPPED_ARROW && entityarrow instanceof EntityTippedArrow) {
+				((EntityTippedArrow) entityarrow).setPotionEffect(itemstack);
+			}
 
-            return entityarrow;
-        }
-    }
+			return entityarrow;
+		}
+	}
 }

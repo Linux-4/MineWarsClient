@@ -6,19 +6,18 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 
-public interface IBakedModel
-{
-    List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand);
+public interface IBakedModel {
+	List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand);
 
-    boolean isAmbientOcclusion();
+	boolean isAmbientOcclusion();
 
-    boolean isGui3d();
+	boolean isGui3d();
 
-    boolean isBuiltInRenderer();
+	boolean isBuiltInRenderer();
 
-    TextureAtlasSprite getParticleTexture();
+	TextureAtlasSprite getParticleTexture();
 
-    ItemCameraTransforms getItemCameraTransforms();
+	ItemCameraTransforms getItemCameraTransforms();
 
-    ItemOverrideList getOverrides();
+	ItemOverrideList getOverrides();
 }

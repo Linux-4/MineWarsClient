@@ -10,58 +10,45 @@ import net.minecraft.tileentity.TileEntitySkull;
 import optifine.Config;
 import optifine.Reflector;
 
-public class ModelAdapterHeadSkeleton extends ModelAdapter
-{
-    public ModelAdapterHeadSkeleton()
-    {
-        super(TileEntitySkull.class, "head_skeleton", 0.0F);
-    }
+public class ModelAdapterHeadSkeleton extends ModelAdapter {
+	public ModelAdapterHeadSkeleton() {
+		super(TileEntitySkull.class, "head_skeleton", 0.0F);
+	}
 
-    public ModelBase makeModel()
-    {
-        return new ModelSkeletonHead(0, 0, 64, 32);
-    }
+	public ModelBase makeModel() {
+		return new ModelSkeletonHead(0, 0, 64, 32);
+	}
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelSkeletonHead))
-        {
-            return null;
-        }
-        else
-        {
-            ModelSkeletonHead modelskeletonhead = (ModelSkeletonHead)model;
-            return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
-        }
-    }
+	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+		if (!(model instanceof ModelSkeletonHead)) {
+			return null;
+		} else {
+			ModelSkeletonHead modelskeletonhead = (ModelSkeletonHead) model;
+			return modelPart.equals("head") ? modelskeletonhead.skeletonHead : null;
+		}
+	}
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
-        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
-        TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntitySkull.class);
+	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
+		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher
+				.getSpecialRendererByClass(TileEntitySkull.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntitySkullRenderer))
-        {
-            return null;
-        }
-        else
-        {
-            if (tileentityspecialrenderer.getEntityClass() == null)
-            {
-                tileentityspecialrenderer = new TileEntitySkullRenderer();
-                tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
-            }
+		if (!(tileentityspecialrenderer instanceof TileEntitySkullRenderer)) {
+			return null;
+		} else {
+			if (tileentityspecialrenderer.getEntityClass() == null) {
+				tileentityspecialrenderer = new TileEntitySkullRenderer();
+				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
+			}
 
-            if (!Reflector.TileEntitySkullRenderer_humanoidHead.exists())
-            {
-                Config.warn("Field not found: TileEntitySkullRenderer.humanoidHead");
-                return null;
-            }
-            else
-            {
-                Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySkullRenderer_humanoidHead, modelBase);
-                return tileentityspecialrenderer;
-            }
-        }
-    }
+			if (!Reflector.TileEntitySkullRenderer_humanoidHead.exists()) {
+				Config.warn("Field not found: TileEntitySkullRenderer.humanoidHead");
+				return null;
+			} else {
+				Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntitySkullRenderer_humanoidHead,
+						modelBase);
+				return tileentityspecialrenderer;
+			}
+		}
+	}
 }

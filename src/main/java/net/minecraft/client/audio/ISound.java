@@ -4,48 +4,43 @@ import javax.annotation.Nullable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 
-public interface ISound
-{
-    ResourceLocation getSoundLocation();
+public interface ISound {
+	ResourceLocation getSoundLocation();
 
-    @Nullable
-    SoundEventAccessor createAccessor(SoundHandler handler);
+	@Nullable
+	SoundEventAccessor createAccessor(SoundHandler handler);
 
-    Sound getSound();
+	Sound getSound();
 
-    SoundCategory getCategory();
+	SoundCategory getCategory();
 
-    boolean canRepeat();
+	boolean canRepeat();
 
-    int getRepeatDelay();
+	int getRepeatDelay();
 
-    float getVolume();
+	float getVolume();
 
-    float getPitch();
+	float getPitch();
 
-    float getXPosF();
+	float getXPosF();
 
-    float getYPosF();
+	float getYPosF();
 
-    float getZPosF();
+	float getZPosF();
 
-    ISound.AttenuationType getAttenuationType();
+	ISound.AttenuationType getAttenuationType();
 
-    public static enum AttenuationType
-    {
-        NONE(0),
-        LINEAR(2);
+	public static enum AttenuationType {
+		NONE(0), LINEAR(2);
 
-        private final int type;
+		private final int type;
 
-        private AttenuationType(int typeIn)
-        {
-            this.type = typeIn;
-        }
+		private AttenuationType(int typeIn) {
+			this.type = typeIn;
+		}
 
-        public int getTypeInt()
-        {
-            return this.type;
-        }
-    }
+		public int getTypeInt() {
+			return this.type;
+		}
+	}
 }

@@ -11,95 +11,76 @@ import net.minecraft.util.text.TextFormatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ResourcePackListEntryServer extends ResourcePackListEntry
-{
-    private static final Logger LOGGER = LogManager.getLogger();
-    private final IResourcePack resourcePack;
-    private final ResourceLocation resourcePackIcon;
+public class ResourcePackListEntryServer extends ResourcePackListEntry {
+	private static final Logger LOGGER = LogManager.getLogger();
+	private final IResourcePack resourcePack;
+	private final ResourceLocation resourcePackIcon;
 
-    public ResourcePackListEntryServer(GuiScreenResourcePacks p_i46594_1_, IResourcePack p_i46594_2_)
-    {
-        super(p_i46594_1_);
-        this.resourcePack = p_i46594_2_;
-        DynamicTexture dynamictexture;
+	public ResourcePackListEntryServer(GuiScreenResourcePacks p_i46594_1_, IResourcePack p_i46594_2_) {
+		super(p_i46594_1_);
+		this.resourcePack = p_i46594_2_;
+		DynamicTexture dynamictexture;
 
-        try
-        {
-            dynamictexture = new DynamicTexture(p_i46594_2_.getPackImage());
-        }
-        catch (IOException var5)
-        {
-            dynamictexture = TextureUtil.MISSING_TEXTURE;
-        }
+		try {
+			dynamictexture = new DynamicTexture(p_i46594_2_.getPackImage());
+		} catch (IOException var5) {
+			dynamictexture = TextureUtil.MISSING_TEXTURE;
+		}
 
-        this.resourcePackIcon = this.mc.getTextureManager().getDynamicTextureLocation("texturepackicon", dynamictexture);
-    }
+		this.resourcePackIcon = this.mc.getTextureManager().getDynamicTextureLocation("texturepackicon",
+				dynamictexture);
+	}
 
-    protected int getResourcePackFormat()
-    {
-        return 3;
-    }
+	protected int getResourcePackFormat() {
+		return 3;
+	}
 
-    protected String getResourcePackDescription()
-    {
-        try
-        {
-            PackMetadataSection packmetadatasection = (PackMetadataSection)this.resourcePack.getPackMetadata(this.mc.getResourcePackRepository().rprMetadataSerializer, "pack");
+	protected String getResourcePackDescription() {
+		try {
+			PackMetadataSection packmetadatasection = (PackMetadataSection) this.resourcePack
+					.getPackMetadata(this.mc.getResourcePackRepository().rprMetadataSerializer, "pack");
 
-            if (packmetadatasection != null)
-            {
-                return packmetadatasection.getPackDescription().getFormattedText();
-            }
-        }
-        catch (JsonParseException jsonparseexception)
-        {
-            LOGGER.error("Couldn't load metadata info", (Throwable)jsonparseexception);
-        }
-        catch (IOException ioexception)
-        {
-            LOGGER.error("Couldn't load metadata info", (Throwable)ioexception);
-        }
+			if (packmetadatasection != null) {
+				return packmetadatasection.getPackDescription().getFormattedText();
+			}
+		} catch (JsonParseException jsonparseexception) {
+			LOGGER.error("Couldn't load metadata info", (Throwable) jsonparseexception);
+		} catch (IOException ioexception) {
+			LOGGER.error("Couldn't load metadata info", (Throwable) ioexception);
+		}
 
-        return TextFormatting.RED + "Missing " + "pack.mcmeta" + " :(";
-    }
+		return TextFormatting.RED + "Missing " + "pack.mcmeta" + " :(";
+	}
 
-    protected boolean canMoveRight()
-    {
-        return false;
-    }
+	protected boolean canMoveRight() {
+		return false;
+	}
 
-    protected boolean canMoveLeft()
-    {
-        return false;
-    }
+	protected boolean canMoveLeft() {
+		return false;
+	}
 
-    protected boolean canMoveUp()
-    {
-        return false;
-    }
+	protected boolean canMoveUp() {
+		return false;
+	}
 
-    protected boolean canMoveDown()
-    {
-        return false;
-    }
+	protected boolean canMoveDown() {
+		return false;
+	}
 
-    protected String getResourcePackName()
-    {
-        return "Server";
-    }
+	protected String getResourcePackName() {
+		return "Server";
+	}
 
-    protected void bindResourcePackIcon()
-    {
-        this.mc.getTextureManager().bindTexture(this.resourcePackIcon);
-    }
+	protected void bindResourcePackIcon() {
+		this.mc.getTextureManager().bindTexture(this.resourcePackIcon);
+	}
 
-    protected boolean showHoverOverlay()
-    {
-        return false;
-    }
+	protected boolean showHoverOverlay() {
+		return false;
+	}
 
-    public boolean isServerPack()
-    {
-        return true;
-    }
+	public boolean isServerPack() {
+		return true;
+	}
 }

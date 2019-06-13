@@ -10,70 +10,52 @@ import net.minecraft.tileentity.TileEntityShulkerBox;
 import optifine.Config;
 import optifine.Reflector;
 
-public class ModelAdapterShulkerBox extends ModelAdapter
-{
-    public ModelAdapterShulkerBox()
-    {
-        super(TileEntityShulkerBox.class, "shulker_box", 0.0F);
-    }
+public class ModelAdapterShulkerBox extends ModelAdapter {
+	public ModelAdapterShulkerBox() {
+		super(TileEntityShulkerBox.class, "shulker_box", 0.0F);
+	}
 
-    public ModelBase makeModel()
-    {
-        return new ModelShulker();
-    }
+	public ModelBase makeModel() {
+		return new ModelShulker();
+	}
 
-    public ModelRenderer getModelRenderer(ModelBase model, String modelPart)
-    {
-        if (!(model instanceof ModelShulker))
-        {
-            return null;
-        }
-        else
-        {
-            ModelShulker modelshulker = (ModelShulker)model;
+	public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
+		if (!(model instanceof ModelShulker)) {
+			return null;
+		} else {
+			ModelShulker modelshulker = (ModelShulker) model;
 
-            if (modelPart.equals("head"))
-            {
-                return modelshulker.head;
-            }
-            else if (modelPart.equals("base"))
-            {
-                return modelshulker.base;
-            }
-            else
-            {
-                return modelPart.equals("lid") ? modelshulker.lid : null;
-            }
-        }
-    }
+			if (modelPart.equals("head")) {
+				return modelshulker.head;
+			} else if (modelPart.equals("base")) {
+				return modelshulker.base;
+			} else {
+				return modelPart.equals("lid") ? modelshulker.lid : null;
+			}
+		}
+	}
 
-    public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize)
-    {
-        TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
-        TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher.getSpecialRendererByClass(TileEntityShulkerBox.class);
+	public IEntityRenderer makeEntityRender(ModelBase modelBase, float shadowSize) {
+		TileEntityRendererDispatcher tileentityrendererdispatcher = TileEntityRendererDispatcher.instance;
+		TileEntitySpecialRenderer tileentityspecialrenderer = tileentityrendererdispatcher
+				.getSpecialRendererByClass(TileEntityShulkerBox.class);
 
-        if (!(tileentityspecialrenderer instanceof TileEntityShulkerBoxRenderer))
-        {
-            return null;
-        }
-        else
-        {
-            if (tileentityspecialrenderer.getEntityClass() == null)
-            {
-                tileentityspecialrenderer = new TileEntityShulkerBoxRenderer((ModelShulker)modelBase);
-                tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
-            }
+		if (!(tileentityspecialrenderer instanceof TileEntityShulkerBoxRenderer)) {
+			return null;
+		} else {
+			if (tileentityspecialrenderer.getEntityClass() == null) {
+				tileentityspecialrenderer = new TileEntityShulkerBoxRenderer((ModelShulker) modelBase);
+				tileentityspecialrenderer.setRendererDispatcher(tileentityrendererdispatcher);
+			}
 
-            if (!Reflector.TileEntityShulkerBoxRenderer_model.exists())
-            {
-                Config.warn("Field not found: TileEntityShulkerBoxRenderer.model");
-                return null;
-            }
-            else
-            {
-                Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityShulkerBoxRenderer_model, modelBase);
-                return tileentityspecialrenderer;
-            }
-        }
-    }
+			if (!Reflector.TileEntityShulkerBoxRenderer_model.exists()) {
+				Config.warn("Field not found: TileEntityShulkerBoxRenderer.model");
+				return null;
+			} else {
+				Reflector.setFieldValue(tileentityspecialrenderer, Reflector.TileEntityShulkerBoxRenderer_model,
+						modelBase);
+				return tileentityspecialrenderer;
+			}
+		}
+	}
 }

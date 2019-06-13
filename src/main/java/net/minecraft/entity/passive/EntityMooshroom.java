@@ -16,83 +16,68 @@ import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-public class EntityMooshroom extends EntityCow
-{
-    public EntityMooshroom(World worldIn)
-    {
-        super(worldIn);
-        this.setSize(0.9F, 1.4F);
-        this.spawnableBlock = Blocks.MYCELIUM;
-    }
+public class EntityMooshroom extends EntityCow {
+	public EntityMooshroom(World worldIn) {
+		super(worldIn);
+		this.setSize(0.9F, 1.4F);
+		this.spawnableBlock = Blocks.MYCELIUM;
+	}
 
-    public static void registerFixesMooshroom(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityMooshroom.class);
-    }
+	public static void registerFixesMooshroom(DataFixer fixer) {
+		EntityLiving.registerFixesMob(fixer, EntityMooshroom.class);
+	}
 
-    public boolean processInteract(EntityPlayer player, EnumHand hand)
-    {
-        ItemStack itemstack = player.getHeldItem(hand);
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack itemstack = player.getHeldItem(hand);
 
-        if (itemstack.getItem() == Items.BOWL && this.getGrowingAge() >= 0 && !player.capabilities.isCreativeMode)
-        {
-            itemstack.func_190918_g(1);
+		if (itemstack.getItem() == Items.BOWL && this.getGrowingAge() >= 0 && !player.capabilities.isCreativeMode) {
+			itemstack.func_190918_g(1);
 
-            if (itemstack.func_190926_b())
-            {
-                player.setHeldItem(hand, new ItemStack(Items.MUSHROOM_STEW));
-            }
-            else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.MUSHROOM_STEW)))
-            {
-                player.dropItem(new ItemStack(Items.MUSHROOM_STEW), false);
-            }
+			if (itemstack.func_190926_b()) {
+				player.setHeldItem(hand, new ItemStack(Items.MUSHROOM_STEW));
+			} else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.MUSHROOM_STEW))) {
+				player.dropItem(new ItemStack(Items.MUSHROOM_STEW), false);
+			}
 
-            return true;
-        }
-        else if (itemstack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0)
-        {
-            this.setDead();
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (double)(this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D);
+			return true;
+		} else if (itemstack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0) {
+			this.setDead();
+			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX,
+					this.posY + (double) (this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D);
 
-            if (!this.world.isRemote)
-            {
-                EntityCow entitycow = new EntityCow(this.world);
-                entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-                entitycow.setHealth(this.getHealth());
-                entitycow.renderYawOffset = this.renderYawOffset;
+			if (!this.world.isRemote) {
+				EntityCow entitycow = new EntityCow(this.world);
+				entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+				entitycow.setHealth(this.getHealth());
+				entitycow.renderYawOffset = this.renderYawOffset;
 
-                if (this.hasCustomName())
-                {
-                    entitycow.setCustomNameTag(this.getCustomNameTag());
-                }
+				if (this.hasCustomName()) {
+					entitycow.setCustomNameTag(this.getCustomNameTag());
+				}
 
-                this.world.spawnEntityInWorld(entitycow);
+				this.world.spawnEntityInWorld(entitycow);
 
-                for (int i = 0; i < 5; ++i)
-                {
-                    this.world.spawnEntityInWorld(new EntityItem(this.world, this.posX, this.posY + (double)this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
-                }
+				for (int i = 0; i < 5; ++i) {
+					this.world.spawnEntityInWorld(new EntityItem(this.world, this.posX,
+							this.posY + (double) this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
+				}
 
-                itemstack.damageItem(1, player);
-                this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
-            }
+				itemstack.damageItem(1, player);
+				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
+			}
 
-            return true;
-        }
-        else
-        {
-            return super.processInteract(player, hand);
-        }
-    }
+			return true;
+		} else {
+			return super.processInteract(player, hand);
+		}
+	}
 
-    public EntityMooshroom createChild(EntityAgeable ageable)
-    {
-        return new EntityMooshroom(this.world);
-    }
+	public EntityMooshroom createChild(EntityAgeable ageable) {
+		return new EntityMooshroom(this.world);
+	}
 
-    @Nullable
-    protected ResourceLocation getLootTable()
-    {
-        return LootTableList.ENTITIES_MUSHROOM_COW;
-    }
+	@Nullable
+	protected ResourceLocation getLootTable() {
+		return LootTableList.ENTITIES_MUSHROOM_COW;
+	}
 }

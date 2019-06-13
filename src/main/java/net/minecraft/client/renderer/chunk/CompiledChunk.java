@@ -7,83 +7,69 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 
-public class CompiledChunk
-{
-    public static final CompiledChunk DUMMY = new CompiledChunk()
-    {
-        protected void setLayerUsed(BlockRenderLayer layer)
-        {
-            throw new UnsupportedOperationException();
-        }
-        public void setLayerStarted(BlockRenderLayer layer)
-        {
-            throw new UnsupportedOperationException();
-        }
-        public boolean isVisible(EnumFacing facing, EnumFacing facing2)
-        {
-            return false;
-        }
-    };
-    private final boolean[] layersUsed = new boolean[BlockRenderLayer.values().length];
-    private final boolean[] layersStarted = new boolean[BlockRenderLayer.values().length];
-    private boolean empty = true;
-    private final List<TileEntity> tileEntities = Lists.<TileEntity>newArrayList();
-    private SetVisibility setVisibility = new SetVisibility();
-    private BufferBuilder.State state;
+public class CompiledChunk {
+	public static final CompiledChunk DUMMY = new CompiledChunk() {
+		protected void setLayerUsed(BlockRenderLayer layer) {
+			throw new UnsupportedOperationException();
+		}
 
-    public boolean isEmpty()
-    {
-        return this.empty;
-    }
+		public void setLayerStarted(BlockRenderLayer layer) {
+			throw new UnsupportedOperationException();
+		}
 
-    protected void setLayerUsed(BlockRenderLayer layer)
-    {
-        this.empty = false;
-        this.layersUsed[layer.ordinal()] = true;
-    }
+		public boolean isVisible(EnumFacing facing, EnumFacing facing2) {
+			return false;
+		}
+	};
+	private final boolean[] layersUsed = new boolean[BlockRenderLayer.values().length];
+	private final boolean[] layersStarted = new boolean[BlockRenderLayer.values().length];
+	private boolean empty = true;
+	private final List<TileEntity> tileEntities = Lists.<TileEntity>newArrayList();
+	private SetVisibility setVisibility = new SetVisibility();
+	private BufferBuilder.State state;
 
-    public boolean isLayerEmpty(BlockRenderLayer layer)
-    {
-        return !this.layersUsed[layer.ordinal()];
-    }
+	public boolean isEmpty() {
+		return this.empty;
+	}
 
-    public void setLayerStarted(BlockRenderLayer layer)
-    {
-        this.layersStarted[layer.ordinal()] = true;
-    }
+	protected void setLayerUsed(BlockRenderLayer layer) {
+		this.empty = false;
+		this.layersUsed[layer.ordinal()] = true;
+	}
 
-    public boolean isLayerStarted(BlockRenderLayer layer)
-    {
-        return this.layersStarted[layer.ordinal()];
-    }
+	public boolean isLayerEmpty(BlockRenderLayer layer) {
+		return !this.layersUsed[layer.ordinal()];
+	}
 
-    public List<TileEntity> getTileEntities()
-    {
-        return this.tileEntities;
-    }
+	public void setLayerStarted(BlockRenderLayer layer) {
+		this.layersStarted[layer.ordinal()] = true;
+	}
 
-    public void addTileEntity(TileEntity tileEntityIn)
-    {
-        this.tileEntities.add(tileEntityIn);
-    }
+	public boolean isLayerStarted(BlockRenderLayer layer) {
+		return this.layersStarted[layer.ordinal()];
+	}
 
-    public boolean isVisible(EnumFacing facing, EnumFacing facing2)
-    {
-        return this.setVisibility.isVisible(facing, facing2);
-    }
+	public List<TileEntity> getTileEntities() {
+		return this.tileEntities;
+	}
 
-    public void setVisibility(SetVisibility visibility)
-    {
-        this.setVisibility = visibility;
-    }
+	public void addTileEntity(TileEntity tileEntityIn) {
+		this.tileEntities.add(tileEntityIn);
+	}
 
-    public BufferBuilder.State getState()
-    {
-        return this.state;
-    }
+	public boolean isVisible(EnumFacing facing, EnumFacing facing2) {
+		return this.setVisibility.isVisible(facing, facing2);
+	}
 
-    public void setState(BufferBuilder.State stateIn)
-    {
-        this.state = stateIn;
-    }
+	public void setVisibility(SetVisibility visibility) {
+		this.setVisibility = visibility;
+	}
+
+	public BufferBuilder.State getState() {
+		return this.state;
+	}
+
+	public void setState(BufferBuilder.State stateIn) {
+		this.state = stateIn;
+	}
 }

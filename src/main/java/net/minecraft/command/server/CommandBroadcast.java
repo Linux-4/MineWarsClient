@@ -12,50 +12,44 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 
-public class CommandBroadcast extends CommandBase
-{
-    /**
-     * Gets the name of the command
-     */
-    public String getCommandName()
-    {
-        return "say";
-    }
+public class CommandBroadcast extends CommandBase {
+	/**
+	 * Gets the name of the command
+	 */
+	public String getCommandName() {
+		return "say";
+	}
 
-    /**
-     * Return the required permission level for this command.
-     */
-    public int getRequiredPermissionLevel()
-    {
-        return 1;
-    }
+	/**
+	 * Return the required permission level for this command.
+	 */
+	public int getRequiredPermissionLevel() {
+		return 1;
+	}
 
-    /**
-     * Gets the usage string for the command.
-     */
-    public String getCommandUsage(ICommandSender sender)
-    {
-        return "commands.say.usage";
-    }
+	/**
+	 * Gets the usage string for the command.
+	 */
+	public String getCommandUsage(ICommandSender sender) {
+		return "commands.say.usage";
+	}
 
-    /**
-     * Callback for when the command is executed
-     */
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
-    {
-        if (args.length > 0 && args[0].length() > 0)
-        {
-            ITextComponent itextcomponent = getChatComponentFromNthArg(sender, args, 0, true);
-            server.getPlayerList().sendChatMsg(new TextComponentTranslation("chat.type.announcement", new Object[] {sender.getDisplayName(), itextcomponent}));
-        }
-        else
-        {
-            throw new WrongUsageException("commands.say.usage", new Object[0]);
-        }
-    }
+	/**
+	 * Callback for when the command is executed
+	 */
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+		if (args.length > 0 && args[0].length() > 0) {
+			ITextComponent itextcomponent = getChatComponentFromNthArg(sender, args, 0, true);
+			server.getPlayerList().sendChatMsg(new TextComponentTranslation("chat.type.announcement",
+					new Object[] { sender.getDisplayName(), itextcomponent }));
+		} else {
+			throw new WrongUsageException("commands.say.usage", new Object[0]);
+		}
+	}
 
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos)
-    {
-        return args.length >= 1 ? getListOfStringsMatchingLastWord(args, server.getAllUsernames()) : Collections.emptyList();
-    }
+	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args,
+			@Nullable BlockPos pos) {
+		return args.length >= 1 ? getListOfStringsMatchingLastWord(args, server.getAllUsernames())
+				: Collections.emptyList();
+	}
 }
