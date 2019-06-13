@@ -1,6 +1,9 @@
 package net.minecraft.client.gui;
 
 import java.io.IOException;
+
+import eu.minewars.client.MineWarsClient;
+import eu.minewars.client.gui.GuiMineWarsOptions;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.text.ITextComponent;
@@ -86,7 +89,7 @@ public class GuiOptions extends GuiScreen {
 		this.buttonList.add(new GuiButton(105, this.width / 2 - 155, this.height / 6 + 120 - 6, 150, 20,
 				I18n.format("options.resourcepack")));
 		this.buttonList.add(new GuiButton(104, this.width / 2 + 5, this.height / 6 + 120 - 6, 150, 20,
-				I18n.format("Nicht verfügbar!")));
+				I18n.format(MineWarsClient.NAME)));
 		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, I18n.format("gui.done")));
 	}
 
@@ -178,8 +181,7 @@ public class GuiOptions extends GuiScreen {
 
 			if (button.id == 104) {
 				this.mc.gameSettings.saveOptions();
-				// TODO: new button
-				// this.mc.displayGuiScreen(new GuiSnooper(this, this.settings));
+				this.mc.displayGuiScreen(new GuiMineWarsOptions(this));
 			}
 
 			if (button.id == 200) {
