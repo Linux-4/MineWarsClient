@@ -45,6 +45,10 @@ public class GuiMineWarsOptions extends GuiScreen {
 				.add(new GuiButton(110, this.width / 2 - 155, this.height / 6 + 120 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
 				.add(new GuiButton(111, this.width / 2 + 5, this.height / 6 + 120 - 6, 150, 20, "Nicht verfügbar!"));
+		this.buttonList
+				.add(new GuiButton(112, this.width / 2 + 5, this.height / 6 + 144 - 6, 150, 20, "Nicht verfügbar!"));
+		this.buttonList
+		.add(new GuiButton(113, this.width / 2 - 155, this.height / 6 + 144 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, I18n.format("gui.done")));
 	}
 

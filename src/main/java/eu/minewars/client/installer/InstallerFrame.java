@@ -127,7 +127,7 @@ public class InstallerFrame extends JFrame {
 				this.ivjLabelMcVersion.setFont(new Font("Dialog", 1, 14));
 				this.ivjLabelMcVersion.setHorizontalAlignment(0);
 				this.ivjLabelMcVersion.setPreferredSize(new Dimension(385, 25));
-				this.ivjLabelMcVersion.setText("fürr Minecraft ...");
+				this.ivjLabelMcVersion.setText("für Minecraft ...");
 			} catch (Throwable ivjExc) {
 				this.handleException(ivjExc);
 			}
