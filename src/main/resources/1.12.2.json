@@ -376,19 +376,19 @@
           "natives-linux": {
             "size": 578680,
             "sha1": "931074f46c795d2f7b30ed6395df5715cfd7675b",
-            "path": "org/lwjgl/lwjgl-platform/lwjgl-platform-natives-linux/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-linux.jar",
+            "path": "org/lwjgl/lwjgl-platform/lwjgl-platform-natives-linux/2.9.4-nightly-20150209/lwjgl-platform-natives-linux-2.9.4-nightly-20150209.jar",
             "url": "https://libraries.minewars.eu/org/lwjgl/lwjgl-platform/lwjgl-platform-natives-linux/2.9.4-nightly-20150209/lwjgl-platform-natives-linux-2.9.4-nightly-20150209.jar"
           },
           "natives-osx": {
             "size": 426822,
             "sha1": "bcab850f8f487c3f4c4dbabde778bb82bd1a40ed",
-            "path": "org/lwjgl/lwjgl-platform/lwjgl-platform-natives-osx/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-osx.jar",
+            "path": "org/lwjgl/lwjgl-platform/lwjgl-platform-natives-osx/2.9.4-nightly-20150209/lwjgl-platform-natives-osx-2.9.4-nightly-20150209.jar",
             "url": "https://libraries.minewars.eu/org/lwjgl/lwjgl-platform/lwjgl-platform-natives-osx/2.9.4-nightly-20150209/lwjgl-platform-natives-osx-2.9.4-nightly-20150209.jar"
           },
           "natives-windows": {
             "size": 613748,
             "sha1": "b84d5102b9dbfabfeb5e43c7e2828d98a7fc80e0",
-            "path": "org/lwjgl/lwjgl-platform/lwjgl-platform-natives-windows/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-windows.jar",
+            "path": "org/lwjgl/lwjgl-platform/lwjgl-platform-natives-windows/2.9.4-nightly-20150209/lwjgl-platform-natives-windows-2.9.4-nightly-20150209.jar",
             "url": "https://libraries.minewars.eu/org/lwjgl/lwjgl-platform/lwjgl-platform-natives-windows/2.9.4-nightly-20150209/lwjgl-platform-natives-windows-2.9.4-nightly-20150209.jar"
           }
         },
