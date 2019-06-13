@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 
+import eu.minewars.client.cape.MineWarsCapeUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -13,13 +14,12 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 
 public class CapeUtils {
-	public static void downloadCape(AbstractClientPlayer p_downloadCape_0_) {
-		String s = p_downloadCape_0_.getNameClear();
+	public static void downloadCape(AbstractClientPlayer player) {
+		String name = player.getNameClear();
 
-		if (s != null && !s.isEmpty()) {
-			String s1 = "http://s.optifine.net/capes/" + s + ".png";
-			String s2 = s;
-			ResourceLocation resourcelocation = new ResourceLocation("capeof/" + s2);
+		if (name != null && !name.isEmpty()) {
+			String url = "http://s.optifine.net/capes/" + name + ".png";
+			ResourceLocation resourcelocation = new ResourceLocation("capemw/" + name);
 			TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
 			ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
 
@@ -28,15 +28,19 @@ public class CapeUtils {
 
 				if (threaddownloadimagedata.imageFound != null) {
 					if (threaddownloadimagedata.imageFound.booleanValue()) {
-						p_downloadCape_0_.setLocationOfCape(resourcelocation);
+						player.setLocationOfCape(resourcelocation);
 					}
 
 					return;
 				}
 			}
 
-			CapeImageBuffer capeimagebuffer = new CapeImageBuffer(p_downloadCape_0_, resourcelocation);
-			ThreadDownloadImageData threaddownloadimagedata1 = new ThreadDownloadImageData((File) null, s1,
+			if (MineWarsCapeUtils.capeExists(name)) {
+				url = "http://cape.minewars.eu/" + name + ".png";
+			}
+
+			CapeImageBuffer capeimagebuffer = new CapeImageBuffer(player, resourcelocation);
+			ThreadDownloadImageData threaddownloadimagedata1 = new ThreadDownloadImageData((File) null, url,
 					(ResourceLocation) null, capeimagebuffer);
 			threaddownloadimagedata1.pipeline = true;
 			texturemanager.loadTexture(resourcelocation, threaddownloadimagedata1);
