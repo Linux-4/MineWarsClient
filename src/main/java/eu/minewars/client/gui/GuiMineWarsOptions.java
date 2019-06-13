@@ -22,21 +22,29 @@ public class GuiMineWarsOptions extends GuiScreen {
 	 */
 	public void initGui() {
 		this.buttonList
-				.add(new GuiButton(110, this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(100, this.width / 2 + 5, this.height / 6 + 0 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
-				.add(new GuiButton(106, this.width / 2 + 5, this.height / 6 + 48 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(101, this.width / 2 + 5, this.height / 6 + 24 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
-				.add(new GuiButton(101, this.width / 2 - 155, this.height / 6 + 72 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(102, this.width / 2 - 155, this.height / 6 + 0 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
-				.add(new GuiButton(100, this.width / 2 + 5, this.height / 6 + 72 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(103, this.width / 2 - 155, this.height / 6 + 24 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
-				.add(new GuiButton(102, this.width / 2 - 155, this.height / 6 + 96 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(104, this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
-				.add(new GuiButton(103, this.width / 2 + 5, this.height / 6 + 96 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(105, this.width / 2 + 5, this.height / 6 + 48 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
-				.add(new GuiButton(105, this.width / 2 - 155, this.height / 6 + 120 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(106, this.width / 2 - 155, this.height / 6 + 72 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
-				.add(new GuiButton(104, this.width / 2 + 5, this.height / 6 + 120 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(107, this.width / 2 + 5, this.height / 6 + 72 - 6, 150, 20, "Nicht verfügbar!"));
+		this.buttonList
+				.add(new GuiButton(108, this.width / 2 - 155, this.height / 6 + 96 - 6, 150, 20, "Nicht verfügbar!"));
+		this.buttonList
+				.add(new GuiButton(109, this.width / 2 + 5, this.height / 6 + 96 - 6, 150, 20, "Nicht verfügbar!"));
+		this.buttonList
+				.add(new GuiButton(110, this.width / 2 - 155, this.height / 6 + 120 - 6, 150, 20, "Nicht verfügbar!"));
+		this.buttonList
+				.add(new GuiButton(111, this.width / 2 + 5, this.height / 6 + 120 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, I18n.format("gui.done")));
 	}
 
