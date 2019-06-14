@@ -106,7 +106,7 @@ public class PluginLoader {
 								p.enable();
 								plugins.put(pDesc.getName(), p);
 								LOGGER.info(MineWarsClient.PREFIX + "Enabled plugin "
-										+ p.getDescription().getName() + " v " + p.getDescription().getVersion()
+										+ p.getDescription().getName() + " v" + p.getDescription().getVersion()
 										+ " by " + p.getDescription().getAuthor());
 							} catch (NoSuchMethodException | SecurityException | InstantiationException
 									| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
