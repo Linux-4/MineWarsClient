@@ -8,10 +8,10 @@ public abstract class Plugin {
 	private File dataFolder;
 	private PluginDescription description;
 	
-	protected Plugin() {}
+	public Plugin() {}
 	
 	@SuppressWarnings("unused")
-	private Plugin(File dataFolder, PluginDescription description) {
+	private final void init(File dataFolder, PluginDescription description) {
 		this.dataFolder = dataFolder;
 		this.description = description;
 	}

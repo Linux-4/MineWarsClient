@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
@@ -92,11 +93,13 @@ public class PluginLoader {
 						try {
 							Class<? extends Plugin> pMain = (Class<? extends Plugin>) main;
 							try {
-								Constructor<? extends Plugin> constructor = pMain.getConstructor(File.class,
-										PluginDescription.class);
+								Constructor<? extends Plugin> constructor = pMain.getConstructor();
 								constructor.setAccessible(true);
 								new File(folder, pDesc.getName()).mkdirs();
-								Plugin p = constructor.newInstance(new File(folder, pDesc.getName()), pDesc);
+								Plugin p = constructor.newInstance();
+								Method init = Plugin.class.getDeclaredMethod("init", File.class, PluginDescription.class);
+								init.setAccessible(true);
+								init.invoke(p, new File(folder, pDesc.getName()), pDesc);
 								LOGGER.info(MineWarsClient.PREFIX + "Loaded plugin "
 										+ p.getDescription().getName() + " v" + p.getDescription().getVersion() + " by "
 										+ p.getDescription().getAuthor());
