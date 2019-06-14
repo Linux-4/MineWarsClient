@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
+
+import eu.minewars.client.MineWarsClient;
+
 import java.io.*;
 import java.awt.*;
 import java.lang.reflect.*;
@@ -163,11 +166,11 @@ public class Utils {
 	}
 
 	public static void showMessage(final String msg) {
-		JOptionPane.showMessageDialog(null, msg, "OptiFine", 1);
+		JOptionPane.showMessageDialog(null, msg, MineWarsClient.NAME, 1);
 	}
 
 	public static void showErrorMessage(final String msg) {
-		JOptionPane.showMessageDialog(null, msg, "Error", 0);
+		JOptionPane.showMessageDialog(null, msg, "Fehler", 0);
 	}
 
 	public static String readFile(final File file) throws IOException {
