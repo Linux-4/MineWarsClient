@@ -40,7 +40,12 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 			this.nameClear = StringUtils.stripControlCodes(this.nameClear);
 		}
 
-		CapeUtils.downloadCape(this);
+		new Thread() {
+			@Override
+			public void run() {
+				CapeUtils.downloadCape(AbstractClientPlayer.this);
+			}
+		}.start();
 		PlayerConfigurations.getPlayerConfiguration(this);
 	}
 

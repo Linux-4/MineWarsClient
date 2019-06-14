@@ -9,7 +9,6 @@ import eu.minewars.client.cape.MineWarsCapeUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
-import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 
@@ -21,19 +20,19 @@ public class CapeUtils {
 			String url = "http://s.optifine.net/capes/" + name + ".png";
 			ResourceLocation resourcelocation = new ResourceLocation("capemw/" + name);
 			TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-			ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
-
-			if (itextureobject != null && itextureobject instanceof ThreadDownloadImageData) {
-				ThreadDownloadImageData threaddownloadimagedata = (ThreadDownloadImageData) itextureobject;
-
-				if (threaddownloadimagedata.imageFound != null) {
-					if (threaddownloadimagedata.imageFound.booleanValue()) {
-						player.setLocationOfCape(resourcelocation);
-					}
-
-					return;
-				}
-			}
+			/*
+			 * ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
+			 * 
+			 * if (itextureobject != null && itextureobject instanceof
+			 * ThreadDownloadImageData) { ThreadDownloadImageData threaddownloadimagedata =
+			 * (ThreadDownloadImageData) itextureobject;
+			 * 
+			 * if (threaddownloadimagedata.imageFound != null) { if
+			 * (threaddownloadimagedata.imageFound.booleanValue()) {
+			 * player.setLocationOfCape(resourcelocation); }
+			 * 
+			 * return; } }
+			 */
 
 			if (MineWarsCapeUtils.capeExists(name)) {
 				url = "http://cape.minewars.eu/" + name + ".png";
