@@ -17,8 +17,8 @@ public class GuiTextField extends Gui {
 	public int yPosition;
 
 	/** The width of this text field. */
-	private final int width;
-	private final int height;
+	public final int width;
+	public final int height;
 
 	/** Has the current text being edited on the textbox. */
 	private String text = "";

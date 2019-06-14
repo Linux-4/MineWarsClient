@@ -15,6 +15,7 @@ import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 
 import eu.minewars.client.MineWarsClient;
+import eu.minewars.client.plugin.loader.PluginLoader;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -236,7 +237,7 @@ public class Minecraft implements IThreadListener {
 	private ServerData currentServerData;
 
 	/** The RenderEngine instance used by Minecraft */
-	private TextureManager renderEngine;
+	public TextureManager renderEngine;
 
 	/**
 	 * Set to 'this' in Minecraft constructor; used by some settings get methods
@@ -457,6 +458,8 @@ public class Minecraft implements IThreadListener {
 			this.displayCrashReport(this.addGraphicsAndWorldToCrashReport(crashreport));
 			return;
 		}
+		
+		PluginLoader.init(new File(this.mcDataDir, "plugins"));
 
 		while (true) {
 			try {
