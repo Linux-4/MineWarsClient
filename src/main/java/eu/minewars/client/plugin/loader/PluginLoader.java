@@ -88,7 +88,7 @@ public class PluginLoader {
 				if (pDesc != null) {
 					try {
 						Class<?> main = new PluginClassLoader(new URL[] { f.toURI().toURL() })
-								.loadClass(pDesc.getMain());
+								.loadPluginClass(pDesc.getMain());
 						try {
 							Class<? extends Plugin> pMain = (Class<? extends Plugin>) main;
 							try {

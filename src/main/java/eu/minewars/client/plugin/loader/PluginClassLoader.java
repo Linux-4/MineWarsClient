@@ -9,7 +9,7 @@ public class PluginClassLoader extends URLClassLoader {
 		super(url);
 	}
 
-	public Class<?> loadClass(String clazz) throws ClassNotFoundException {
+	public Class<?> loadPluginClass(String clazz) throws ClassNotFoundException {
 		return Class.forName(clazz, true, this);
 	}
 
