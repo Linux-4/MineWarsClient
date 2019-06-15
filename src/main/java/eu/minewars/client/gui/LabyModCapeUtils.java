@@ -8,7 +8,7 @@ public class LabyModCapeUtils {
 
 	public static boolean capeExists(UUID id) {
 		try {
-			HttpURLConnection conn = (HttpURLConnection) new URL("http://capes.labymod.net/capes/" + id).openConnection();
+			HttpURLConnection conn = (HttpURLConnection) new URL("http://capes.labymod.net/cape/" + id).openConnection();
 			return conn.getResponseCode() == 200;
 		} catch(Exception ex) {
 			return false;
