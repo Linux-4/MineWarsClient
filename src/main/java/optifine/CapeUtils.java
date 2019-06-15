@@ -21,7 +21,7 @@ public class CapeUtils {
 
 		if (name != null && !name.isEmpty()) {
 			String url = "http://s.optifine.net/capes/" + name + ".png";
-			ResourceLocation resourcelocation = new ResourceLocation("capemw/" + name);
+			ResourceLocation resourcelocation = new ResourceLocation("capemw/" + MineWarsCapeUtils.getUUID(player));
 			TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
 			/*
 			 * ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
