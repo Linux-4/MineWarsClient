@@ -22,21 +22,23 @@ public class PluginListEntry implements GuiListExtended.IGuiListEntry {
 			"textures/gui/resource_packs.png");
 	protected final Minecraft mc;
 	protected final PluginDescription plugin;
+	protected final GuiPluginList list;
 
-	public PluginListEntry(PluginDescription plugin) {
+	public PluginListEntry(GuiPluginList list, PluginDescription plugin) {
 		this.mc = Minecraft.getMinecraft();
 		this.plugin = plugin;
+		this.list = list;
 	}
 
 	public void func_192634_a(int p_192634_1_, int p_192634_2_, int p_192634_3_, int p_192634_4_, int p_192634_5_,
 			int p_192634_6_, int p_192634_7_, boolean p_192634_8_, float p_192634_9_) {
 
 		this.bindPluginIcon();
-		
+
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		Gui.drawModalRectWithCustomSizedTexture(p_192634_2_, p_192634_3_, 0.0F, 0.0F, 32, 32, 32.0F, 32.0F);
 		String name = plugin.getName();
-		String description = "By " + plugin.getAuthor();
+		String description = "Version " + plugin.getVersion() + "\nBy " + plugin.getAuthor();
 
 		if (this.showHoverOverlay() && (this.mc.gameSettings.touchscreen || p_192634_8_)) {
 			this.mc.getTextureManager().bindTexture(RESOURCE_PACKS_TEXTURE);

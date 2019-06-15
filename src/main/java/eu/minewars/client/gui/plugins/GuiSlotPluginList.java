@@ -12,9 +12,9 @@ public class GuiSlotPluginList extends GuiListExtended {
 	protected final Minecraft mc;
 	protected final List<PluginListEntry> resourcePackEntries;
 
-	public GuiSlotPluginList(Minecraft mcIn, int p_i45055_2_, int p_i45055_3_,
+	public GuiSlotPluginList(Minecraft mcIn, int widthIn, int heightIn,
 			List<PluginListEntry> plugins) {
-		super(mcIn, p_i45055_2_, p_i45055_3_, 32, p_i45055_3_ - 55 + 4, 36);
+		super(mcIn, widthIn, heightIn, 32, heightIn - 55 + 4, 36);
 		this.mc = mcIn;
 		this.resourcePackEntries = plugins;
 		this.centerListVertically = false;
