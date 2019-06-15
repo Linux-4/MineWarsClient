@@ -3,6 +3,7 @@ package eu.minewars.client.plugin;
 import java.io.File;
 
 import eu.minewars.client.event.EventManager;
+import eu.minewars.client.plugin.gui.PluginGUI;
 
 public abstract class Plugin {
 
@@ -45,5 +46,7 @@ public abstract class Plugin {
 	public File getDataFolder() {
 		return dataFolder;
 	}
+	
+	public abstract PluginGUI getGUI();
 	
 }

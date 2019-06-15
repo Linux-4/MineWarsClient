@@ -18,8 +18,6 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.ResourceLocation;
 
 public class PluginListEntry implements GuiListExtended.IGuiListEntry {
-	private static final ResourceLocation RESOURCE_PACKS_TEXTURE = new ResourceLocation(
-			"textures/gui/resource_packs.png");
 	protected final Minecraft mc;
 	protected final PluginDescription plugin;
 	protected final GuiPluginList list;
@@ -40,17 +38,17 @@ public class PluginListEntry implements GuiListExtended.IGuiListEntry {
 		String name = plugin.getName();
 		String description = "Version " + plugin.getVersion() + "\nBy " + plugin.getAuthor();
 
-		if (this.showHoverOverlay() && (this.mc.gameSettings.touchscreen || p_192634_8_)) {
+		/*if (this.showHoverOverlay() && (this.mc.gameSettings.touchscreen || p_192634_8_)) {
 			this.mc.getTextureManager().bindTexture(RESOURCE_PACKS_TEXTURE);
 			Gui.drawRect(p_192634_2_, p_192634_3_, p_192634_2_ + 32, p_192634_3_ + 32, -1601138544);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			/*
-			 * if (i < 3) { name = INCOMPATIBLE.getFormattedText(); description =
-			 * INCOMPATIBLE_OLD.getFormattedText(); } else if (i > 3) { name =
-			 * INCOMPATIBLE.getFormattedText(); description =
-			 * INCOMPATIBLE_NEW.getFormattedText(); }
-			 */
-		}
+			
+			 if (i < 3) { name = INCOMPATIBLE.getFormattedText(); description =
+			 INCOMPATIBLE_OLD.getFormattedText(); } else if (i > 3) { name =
+			 INCOMPATIBLE.getFormattedText(); description =
+			 INCOMPATIBLE_NEW.getFormattedText(); }
+			 
+		}*/
 
 		int i1 = this.mc.fontRendererObj.getStringWidth(name);
 
@@ -103,7 +101,7 @@ public class PluginListEntry implements GuiListExtended.IGuiListEntry {
 	 */
 	public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
 		if (this.showHoverOverlay() && relativeX <= 32) {
-
+			list.setSelected(this);
 		}
 
 		return false;
