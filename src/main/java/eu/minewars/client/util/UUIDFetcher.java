@@ -18,19 +18,22 @@ public class UUIDFetcher {
 
 	public static UUID getUUID(AbstractClientPlayer p) {
 		try {
-			HttpsURLConnection conn = (HttpsURLConnection) new URL("https://api.minetools.eu/uuid/" + p.getNameClear()).openConnection(Minecraft.getMinecraft().getProxy());
+			HttpsURLConnection conn = (HttpsURLConnection) new URL("https://api.minetools.eu/uuid/" + p.getNameClear())
+					.openConnection(Minecraft.getMinecraft().getProxy());
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String text = "";
 			String line;
-			while((line = reader.readLine()) != null) {
+			while ((line = reader.readLine()) != null) {
 				text = text + line;
 			}
-			
+
 			JsonObject json = (JsonObject) new JsonParser().parse(text);
-			return UUID.fromString(json.get("id").getAsString());
-		} catch (Exception e) {
+			return UUID.fromString(json.get("id").getAsString().replaceFirst(
+					"(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)",
+					"$1-$2-$3-$4-$5"));
+		} catch (Exception ex) {
 			return EntityPlayer.getUUID(p.getGameProfile());
 		}
 	}
-	
+
 }
