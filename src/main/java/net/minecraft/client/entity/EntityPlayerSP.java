@@ -2,6 +2,9 @@ package net.minecraft.client.entity;
 
 import java.util.List;
 import javax.annotation.Nullable;
+
+import eu.minewars.client.event.EventManager;
+import eu.minewars.client.event.player.PlayerChatEvent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ElytraSound;
@@ -333,7 +336,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 	 * Sends a chat message from the player.
 	 */
 	public void sendChatMessage(String message) {
-		this.connection.sendPacket(new CPacketChatMessage(message));
+		PlayerChatEvent event = EventManager.callEvent(new PlayerChatEvent(this, message));
+		if(event.isCancelled()) {
+			return;
+		}
+		this.connection.sendPacket(new CPacketChatMessage(event.getMessage()));
 	}
 
 	public void swingArm(EnumHand hand) {

@@ -21,6 +21,9 @@ import net.minecraft.util.text.TextComponentTranslation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import eu.minewars.client.event.EventManager;
+import eu.minewars.client.event.server.JoinServerEvent;
+
 public class GuiConnecting extends GuiScreen {
 	private static final AtomicInteger CONNECTION_ID = new AtomicInteger(0);
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -31,9 +34,14 @@ public class GuiConnecting extends GuiScreen {
 	public GuiConnecting(GuiScreen parent, Minecraft mcIn, ServerData serverDataIn) {
 		this.mc = mcIn;
 		this.previousGuiScreen = parent;
-		ServerAddress serveraddress = ServerAddress.fromString(serverDataIn.serverIP);
+		JoinServerEvent event = EventManager.callEvent(new JoinServerEvent(serverDataIn));
+		if(event.isCancelled()) {
+			mc.displayGuiScreen(parent);
+			return;
+		}
+		ServerAddress serveraddress = ServerAddress.fromString(event.getServer().serverIP);
 		mcIn.loadWorld((WorldClient) null);
-		mcIn.setServerData(serverDataIn);
+		mcIn.setServerData(event.getServer());
 		this.connect(serveraddress.getIP(), serveraddress.getPort());
 	}
 

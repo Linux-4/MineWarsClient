@@ -6,6 +6,8 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 
 import eu.minewars.client.cape.MineWarsCapeUtils;
+import eu.minewars.client.event.EventManager;
+import eu.minewars.client.event.player.PlayerDownloadCapeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -37,9 +39,15 @@ public class CapeUtils {
 			if (MineWarsCapeUtils.capeExists(name)) {
 				url = "http://cape.minewars.eu/" + name + ".png";
 			}
+			
+			PlayerDownloadCapeEvent event = EventManager.callEvent(new PlayerDownloadCapeEvent(player, url));
+			
+			if(event.isCancelled()) {
+				return;
+			}
 
 			CapeImageBuffer capeimagebuffer = new CapeImageBuffer(player, resourcelocation);
-			ThreadDownloadImageData threaddownloadimagedata1 = new ThreadDownloadImageData((File) null, url,
+			ThreadDownloadImageData threaddownloadimagedata1 = new ThreadDownloadImageData((File) null, event.getURL(),
 					(ResourceLocation) null, capeimagebuffer);
 			threaddownloadimagedata1.pipeline = true;
 			texturemanager.loadTexture(resourcelocation, threaddownloadimagedata1);
