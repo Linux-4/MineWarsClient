@@ -4,11 +4,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
+import java.util.UUID;
 
 import eu.minewars.client.cape.MineWarsCapeUtils;
 import eu.minewars.client.event.EventManager;
 import eu.minewars.client.event.player.PlayerDownloadCapeEvent;
 import eu.minewars.client.gui.LabyModCapeUtils;
+import eu.minewars.client.util.UUIDFetcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -21,7 +23,8 @@ public class CapeUtils {
 
 		if (name != null && !name.isEmpty()) {
 			String url = "http://s.optifine.net/capes/" + name + ".png";
-			ResourceLocation resourcelocation = new ResourceLocation("capemw/" + MineWarsCapeUtils.getUUID(player));
+			UUID id = UUIDFetcher.getUUID(player);
+			ResourceLocation resourcelocation = new ResourceLocation("capemw/" + id);
 			TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
 			/*
 			 * ITextureObject itextureobject = texturemanager.getTexture(resourcelocation);
@@ -37,10 +40,10 @@ public class CapeUtils {
 			 * return; } }
 			 */
 
-			if (MineWarsCapeUtils.capeExists(MineWarsCapeUtils.getUUID(player))) {
-				url = "http://cape.minewars.eu/" + MineWarsCapeUtils.getUUID(player) + ".png";
-			} else if(LabyModCapeUtils.capeExists(MineWarsCapeUtils.getUUID(player))) {
-				url = "http://capes.labymod.net/cape/" + MineWarsCapeUtils.getUUID(player);
+			if (MineWarsCapeUtils.capeExists(id)) {
+				url = "http://cape.minewars.eu/" + id + ".png";
+			} else if(LabyModCapeUtils.capeExists(id)) {
+				url = "http://capes.labymod.net/cape/" + id;
 			}
 			
 			PlayerDownloadCapeEvent event = EventManager.callEvent(new PlayerDownloadCapeEvent(player, url));

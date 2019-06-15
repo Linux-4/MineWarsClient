@@ -4,9 +4,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.UUID;
 
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.entity.player.EntityPlayer;
-
 public class MineWarsCapeUtils {
 	
 	public static boolean capeExists(UUID id) {
@@ -16,10 +13,6 @@ public class MineWarsCapeUtils {
 		} catch(Exception ex) {
 			return false;
 		}
-	}
-	
-	public static UUID getUUID(AbstractClientPlayer p) {
-		return EntityPlayer.getUUID(p.getGameProfile());
 	}
 	
 }
