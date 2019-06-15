@@ -42,8 +42,8 @@ public class GuiPluginList extends GuiScreen {
 		for (Plugin p : PluginLoader.getPlugins()) {
 			plugins.add(new PluginListEntry(this, p.getDescription()));
 		}
-		this.pluginList = new GuiSlotPluginList(this.mc, this.width/2 /* 200 */, this.height, plugins);
-		this.pluginList.setSlotXBoundsFromLeft(this.width/4/* this.width / 2 - 4 -200 */);
+		this.pluginList = new GuiSlotPluginList(this.mc, (this.width/3)*2 /* 200 */, this.height, plugins);
+		this.pluginList.setSlotXBoundsFromLeft(this.width/6/* this.width / 2 - 4 -200 */);
 		this.pluginList.registerScrollButtons(7, 8);
 	}
 
