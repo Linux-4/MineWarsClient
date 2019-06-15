@@ -8,6 +8,7 @@ import java.io.File;
 import eu.minewars.client.cape.MineWarsCapeUtils;
 import eu.minewars.client.event.EventManager;
 import eu.minewars.client.event.player.PlayerDownloadCapeEvent;
+import eu.minewars.client.gui.LabyModCapeUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -36,8 +37,10 @@ public class CapeUtils {
 			 * return; } }
 			 */
 
-			if (MineWarsCapeUtils.capeExists(name)) {
-				url = "http://cape.minewars.eu/" + name + ".png";
+			if (MineWarsCapeUtils.capeExists(MineWarsCapeUtils.getUUID(player))) {
+				url = "http://cape.minewars.eu/" + MineWarsCapeUtils.getUUID(player) + ".png";
+			} else if(LabyModCapeUtils.capeExists(MineWarsCapeUtils.getUUID(player))) {
+				url = "http://capes.labymod.net/cape/" + MineWarsCapeUtils.getUUID(player);
 			}
 			
 			PlayerDownloadCapeEvent event = EventManager.callEvent(new PlayerDownloadCapeEvent(player, url));
