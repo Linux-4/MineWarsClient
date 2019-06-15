@@ -2,6 +2,8 @@ package eu.minewars.client.plugin;
 
 import java.io.File;
 
+import eu.minewars.client.event.EventManager;
+
 public abstract class Plugin {
 
 	private boolean enabled = false;
@@ -23,7 +25,9 @@ public abstract class Plugin {
 	
 	public void disable() {
 		enabled = false;
-		this.onEnable();
+		this.onDisable();
+		EventManager.unregisterByPluginFile(
+				new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile()));
 	}
 
 	public boolean isEnabled() {

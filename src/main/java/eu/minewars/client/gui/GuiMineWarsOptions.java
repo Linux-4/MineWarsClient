@@ -3,6 +3,7 @@ package eu.minewars.client.gui;
 import java.io.IOException;
 
 import eu.minewars.client.MineWarsClient;
+import eu.minewars.client.gui.plugins.GuiPluginList;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -46,7 +47,7 @@ public class GuiMineWarsOptions extends GuiScreen {
 		this.buttonList
 				.add(new GuiButton(111, this.width / 2 + 5, this.height / 6 + 120 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList
-				.add(new GuiButton(112, this.width / 2 + 5, this.height / 6 + 144 - 6, 150, 20, "Nicht verfügbar!"));
+				.add(new GuiButton(112, this.width / 2 + 5, this.height / 6 + 144 - 6, 150, 20, "Plugins"));
 		this.buttonList
 		.add(new GuiButton(113, this.width / 2 - 155, this.height / 6 + 144 - 6, 150, 20, "Nicht verfügbar!"));
 		this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168, I18n.format("gui.done")));
@@ -73,6 +74,8 @@ public class GuiMineWarsOptions extends GuiScreen {
 		if (button.enabled) {
 			if (button.id == 200) {
 				this.mc.displayGuiScreen(this.lastScreen);
+			} else if(button.id == 112) {
+				this.mc.displayGuiScreen(new GuiPluginList(this));
 			}
 		}
 	}
