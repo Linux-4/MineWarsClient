@@ -43,7 +43,7 @@ public class CapeUtils {
 			if (MineWarsCapeUtils.capeExists(id)) {
 				url = "http://cape.minewars.eu/" + id + ".png";
 			} else if(LabyModCapeUtils.capeExists(id)) {
-				url = "http://capes.labymod.net/cape/" + id;
+				url = "http://capes.labymod.net/capes/" + id;
 			}
 			
 			PlayerDownloadCapeEvent event = EventManager.callEvent(new PlayerDownloadCapeEvent(player, url));
