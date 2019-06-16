@@ -13,6 +13,8 @@ import com.google.gson.GsonBuilder;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.properties.PropertyMap.Serializer;
 
+import eu.minewars.client.discord.RichPresence;
+
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -119,6 +121,7 @@ public class Main {
 				Minecraft.stopIntegratedServer();
 			}
 		});
+		new RichPresence().start();
 		Thread.currentThread().setName("Client thread");
 		(new Minecraft(gameconfiguration)).run();
 	}

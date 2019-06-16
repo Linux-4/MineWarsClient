@@ -15,18 +15,26 @@
 	</properties>
 
 	<repositories>
-		<!--<repository>
-			<name>strezz-central</name>
-			<id>strezz</id>
-			<url>https://github.com/Strezzed/strezz-central/raw/repository</url>
-		</repository>-->
+		<!--<repository> <name>strezz-central</name> <id>strezz</id> <url>https://github.com/Strezzed/strezz-central/raw/repository</url> 
+			</repository> -->
 		<repository>
 			<id>libraries.minewars.eu</id>
 			<url>https://libraries.minewars.eu/</url>
 		</repository>
+		<repository>
+			<id>jcenter</id>
+			<url>https://jcenter.bintray.com</url>
+			<name>jcenter-bintray</name>
+		</repository>
 	</repositories>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>club.minnced</groupId>
+			<artifactId>java-discord-rpc</artifactId>
+			<version>2.0.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.mojang</groupId>
