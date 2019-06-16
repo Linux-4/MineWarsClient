@@ -5,6 +5,7 @@ import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import eu.minewars.client.MineWarsClient;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ServerData;
 
 public class RichPresence extends Thread {
 
@@ -37,12 +38,17 @@ public class RichPresence extends Thread {
 				lib.Discord_Shutdown();
 			}
 		});
+		ServerData current = null;
 		while (!Thread.currentThread().isInterrupted()) {
-			if(Minecraft.getMinecraft().getCurrentServerData() != null) {
-				updatePresence(Minecraft.getMinecraft().getCurrentServerData().serverIP);
-			} else {
-				updatePresence(def);
+			ServerData n = Minecraft.getMinecraft().getCurrentServerData();
+			String text = def;
+			if(n != null) {
+				text = n.serverIP;
 			}
+			if(n != current) {
+				updatePresence(text);
+			}
+			current = n;
 			lib.Discord_RunCallbacks();
 			try {
 				Thread.sleep(2000);
@@ -53,6 +59,7 @@ public class RichPresence extends Thread {
 	
 	public void updatePresence(String text) {
 		presence.details = text;
+		presence.startTimestamp = System.currentTimeMillis() / 1000;
 		lib.Discord_UpdatePresence(presence);
 	}
 
