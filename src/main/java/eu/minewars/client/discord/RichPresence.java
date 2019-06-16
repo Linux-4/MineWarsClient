@@ -4,6 +4,7 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import eu.minewars.client.MineWarsClient;
+import net.minecraft.client.Minecraft;
 
 public class RichPresence extends Thread {
 
@@ -25,7 +26,8 @@ public class RichPresence extends Thread {
 		DiscordEventHandlers handlers = new DiscordEventHandlers();
 		lib.Discord_Initialize(applicationId, handlers, true, null);
 		presence.startTimestamp = System.currentTimeMillis() / 1000; // epoch second
-		presence.details = MineWarsClient.NAME + " " + MineWarsClient.VERSION;
+		String def = MineWarsClient.NAME + " " + MineWarsClient.VERSION;
+		presence.details = def;
 		//presence.smallImageKey = "logo";
 		presence.largeImageKey = "logo";
 		lib.Discord_UpdatePresence(presence);
@@ -36,6 +38,11 @@ public class RichPresence extends Thread {
 			}
 		});
 		while (!Thread.currentThread().isInterrupted()) {
+			if(Minecraft.getMinecraft().getCurrentServerData() != null) {
+				updatePresence(Minecraft.getMinecraft().getCurrentServerData().serverIP);
+			} else {
+				updatePresence(def);
+			}
 			lib.Discord_RunCallbacks();
 			try {
 				Thread.sleep(2000);
