@@ -1,6 +1,7 @@
 package net.minecraft.client.gui;
 
 import java.io.IOException;
+
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -9,7 +10,7 @@ import net.minecraft.client.resources.I18n;
 public class GuiIngameMenu extends GuiScreen {
 	private int saveStep;
 	private int visibleTime;
-
+	
 	/**
 	 * Adds the buttons (and other controls) to the screen in question. Called when
 	 * the GUI is displayed and when the window resizes, the buttonList is cleared

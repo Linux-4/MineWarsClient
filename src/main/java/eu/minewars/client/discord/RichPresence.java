@@ -3,22 +3,29 @@ package eu.minewars.client.discord;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import eu.minewars.client.MineWarsClient;
 
 public class RichPresence extends Thread {
 
+	private final DiscordRPC lib = DiscordRPC.INSTANCE;
+	private final String applicationId = "589785332329742337";
+	private final DiscordRichPresence presence = new DiscordRichPresence();
+	private static RichPresence instance;
+	
+	public RichPresence() {
+		instance = this;
+	}
+	
+	public static RichPresence getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public void run() {
-		DiscordRPC lib = DiscordRPC.INSTANCE;
-		String applicationId = "589785332329742337";
-		String steamId = null;
 		DiscordEventHandlers handlers = new DiscordEventHandlers();
-		handlers.ready = (user) -> System.out.println("Ready!");
-		lib.Discord_Initialize(applicationId, handlers, true, steamId);
-		DiscordRichPresence presence = new DiscordRichPresence();
+		lib.Discord_Initialize(applicationId, handlers, true, null);
 		presence.startTimestamp = System.currentTimeMillis() / 1000; // epoch second
-		presence.details = MineWarsClient.NAME;
-		presence.smallImageKey = "logo";
+		presence.details = "Starten..";
+		//presence.smallImageKey = "logo";
 		presence.largeImageKey = "logo";
 		lib.Discord_UpdatePresence(presence);
 		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -34,6 +41,11 @@ public class RichPresence extends Thread {
 			} catch (InterruptedException ignored) {
 			}
 		}
+	}
+	
+	public void updatePresence(String text) {
+		presence.details = text;
+		lib.Discord_UpdatePresence(presence);
 	}
 
 }
