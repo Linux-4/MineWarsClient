@@ -3,6 +3,7 @@ package eu.minewars.client.discord;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import eu.minewars.client.MineWarsClient;
 
 public class RichPresence extends Thread {
 
@@ -24,7 +25,7 @@ public class RichPresence extends Thread {
 		DiscordEventHandlers handlers = new DiscordEventHandlers();
 		lib.Discord_Initialize(applicationId, handlers, true, null);
 		presence.startTimestamp = System.currentTimeMillis() / 1000; // epoch second
-		presence.details = "Starten..";
+		presence.details = MineWarsClient.NAME + " " + MineWarsClient.VERSION;
 		//presence.smallImageKey = "logo";
 		presence.largeImageKey = "logo";
 		lib.Discord_UpdatePresence(presence);
